@@ -1,0 +1,10 @@
+.login{
+	margin: 0 auto;
+	.username,.password{
+		display: inline-block;
+		height:30px;
+		line-height: 30px;
+		font-size: 18px;
+		font-weight: 500;
+	}
+}
