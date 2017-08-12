@@ -16,7 +16,6 @@ class AppComponent extends Component{
                 <Tag type="warning">标签五</Tag>
                 <Tag type="danger">标签六</Tag>
               </div>
-                {this.props.children}
             </div>
         )
     }

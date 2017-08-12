@@ -4,7 +4,7 @@ import {Provider} from 'react-redux'
 import {Router, hashHistory, browserHistory} from 'react-router'
 import routes from './router'
 
-import createStore from './redux/configureStore'
+import createStore from './utils/configureStore'
 
 const store = createStore(window.__INITIAL_STATE__, browserHistory)
 

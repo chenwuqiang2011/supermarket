@@ -17,6 +17,7 @@ module.exports = {
 		//查询数据库
 		sql.query("select * from products",function(err,results,fields){
 			console.log(888,results);
+			callback(results)
 		})
 	}
 }

@@ -3,7 +3,7 @@
 //ajax 完成之后 => loading hided $.get('url', function(response){})  => {status: true, data: [{}]}
 // action => store = createStroe(reducer, 中间件) => reducer
 
-import * as types from '../../redux/commonConstant'
+import * as types from '../../utils/commonConstant'
 
 export default function(state = {loading: false}, action){
     let reState = JSON.parse(JSON.stringify(state))
@@ -12,7 +12,7 @@ export default function(state = {loading: false}, action){
             reState.loading = true
             break
         case types.SUCCESS:
-            reState.data = action.body
+            reState.data = action.response
             reState.lastFetched = action.lastFetched
             reState.loading = false
             break
@@ -21,5 +21,6 @@ export default function(state = {loading: false}, action){
             reState.loading = false
             break
     }
+  
     return reState;
 }

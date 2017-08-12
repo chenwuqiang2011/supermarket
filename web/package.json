@@ -35,8 +35,8 @@
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   },
-  "devDependencies": {
+  "Dependencies": {
     "element-react": "^1.1.5",
-    "element-theme-default": "^1.4.2",
+    "element-theme-default": "^1.4.2"
   }
 }
