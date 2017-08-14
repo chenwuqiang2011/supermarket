@@ -1,0 +1,52 @@
+$bgcolor : #aaa;
+body,h1,p{padding:0;margin:0;}
+body,html{
+	height:100%;
+}
+#app{
+	height:100%;
+	.parent{
+		height:100%;
+		.header{
+			background:$bgcolor;
+			padding:10px 0;
+			display:flex;
+			flex-direction:row;
+			flex-wrap:no-wrap;
+			justify-content: space-between;
+			height:10%;
+			min-height: 80px;
+			width:100%;
+			box-sizing:border-box;
+			overflow:hidden;
+			h1{
+				padding-top: 2%;
+				height:100%; 
+			}
+			img{
+				display: block;
+				height:100%;
+				margin-left:50px;
+
+			}
+			.user{
+				line-height: 100%;
+				height:100%;
+				margin-right:50px;
+				margin-top:15px;
+				font-size: 18px;
+				div{
+					margin-top:30px;
+				}
+			}
+		}
+		.content{
+			height:90%;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			.content_left{height:100%;width:15%;background:#ddd;overflow-X:hidden;}
+			.content_right{height:100%;flex:1;text-align: center;}
+		}
+	}
+}

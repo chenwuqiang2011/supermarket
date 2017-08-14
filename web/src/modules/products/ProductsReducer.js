@@ -3,7 +3,7 @@
 //ajax 完成之后 => loading hided $.get('url', function(response){})  => {status: true, data: [{}]}
 // action => store = createStroe(reducer, 中间件) => reducer
 
-import * as types from '../../redux/commonConstant'
+import * as types from '../../utils/commonConstant'
 
 export default function(state = {loading: false}, action){
     console.log(action)

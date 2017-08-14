@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux'
 import {Table,Button} from 'element-react';
+import SpinnerComponent from '../spinner/SpinnerComponent'
 
 import * as ProductsAction from './ProductsAction'
 
@@ -87,7 +88,6 @@ class ProductsComponent extends React.Component{
 	}
 	componentWillMount(){
 		this.props.products;
-		console.log(this)
 	}
 	render() {
 	  return (

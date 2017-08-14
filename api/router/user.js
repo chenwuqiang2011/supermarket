@@ -12,7 +12,7 @@ exports.register = function (app){
 		//请求数据库；
 		sql.login("user", request.body, function(data){
 			//返回数据到页面；
-			response.send('login');
+			response.send({response:"666",body:"888"});
 		})
 	})
 }

@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as loginActions from './LoginAction'
 import SpinnerComponent from '../spinner/SpinnerComponent'
+import { Input, Button } from "element-react";
+import "./Login.scss";
 
 // @connect(
 //     state => ({
@@ -25,28 +27,31 @@ class LoginComponent extends React.Component {
         //     //show up dialog => password cannot empty
         //     return 
         // }
-        
-        this.props.login(this.refs.username.value, this.refs.password.value)
-        console.log(this.props)
+        var _username = document.getElementById("username").value;
+        var _password = document.getElementById("username").value;
+        this.props.login(_username, _password );
+        if(this.props.data){
+            alert("登录成功！")
+        }
+        console.log(this.props.data)
+
     }
 
     render(){
         return(
             <div className="login">
-                <ul>
-                    <li><input type="text" ref="username"/></li>
-                    <li><input type="text" ref="password"/></li>
-                    <li><input type="button" value="登录" onClick={this.loginHandler.bind(this)}/></li>
-                    <li>{this.props.loading + ''}</li>
-                </ul>
-                <SpinnerComponent show={this.props.loading}/>
+                <label htmlFor = "username">用户名：<Input type = "text" ref = "username" placeholder="请输入用户名" id="username" /></label><br />
+                <label htmlFor = "password">密码：<Input type = "password" ref = "password" placeholder="请输入密码" id = "password" /></label><br />
+                <Button type="primary" onClick={this.loginHandler.bind(this)}>登录</Button>
             </div>
+        
         )
     }
 }
 
 const mapStateToProps = state => ({
     loading: state.login.loading,
+    data:state.login.data
 })
 export default connect(mapStateToProps, loginActions)(LoginComponent)
 // export default LoginComponent

@@ -1,4 +1,4 @@
-import * as constants from '../../redux/commonConstant'
+import * as constants from '../../../src/utils/commonConstant'
 
 export function products(qty){
     return {
