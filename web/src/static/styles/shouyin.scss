@@ -1,0 +1,84 @@
+*{margin:0;padding:0;}
+.bigbox{width:100%;height:100%;}
+.head{background:#444444;height:34px;width:100%;text-align: center;}
+.head span{margin:0 auto;font-size:19px;color:#fdfdfd;line-height: 34px;}
+.body{
+    background:#f1f1f1;
+    overflow: hidden;
+    .fChild{
+        margin:8px;
+        height:394px;
+        border:1px solid #ababab;
+        .screen{
+            margin:8px 0 0 10px;
+            font-size:16px;
+            span{margin-right:10px;width:10%;}
+            input{height:27px;width:60%;margin-right:10px;}
+        }
+        table{width:100%;}
+    }
+    .sChild{
+        border:1px solid #ababab;
+        margin:12px 8px;
+        line-height:39px;
+        button{height:33px;background:#fdfdfd;border:1px solid #ababab;margin-left:2px;}
+        laber{
+            width:10%;
+            font-size:16px;
+            margin:0 5px;
+            input{width:6%;height:24px;border:1px dashed #ababab;}
+        }
+        laber:nth-of-type(1){input{width:10%;border:1px solid #ababab;}}
+    }
+    .tChild{
+        margin:0 8px;
+        overflow: hidden;
+        .left{
+            width:70%;margin-right:1%;height:175px;background:#999690;border:1px solid #646464;float:left;display: flex;justify-content: space-around;
+            .one{font-size:27px;float:left;margin-top:28px;}
+            .two{
+                float:left;margin-top:28px;
+                .stwo{font-size:27px;padding-bottom:20px;border-bottom:1px solid #fff;}
+                .sthree{
+                    font-size:43px;padding-top:20px;
+                    button{width:40px;height:38px;margin-left:73px;}
+                }
+            }
+        }
+        .right{
+            width:28.5%;height:175px;border:1px solid #ababab;float:left;display: flex;justify-content: space-between;
+            div{
+               laber{
+                display: block;
+                font-weight:600;
+                font-size:14px;
+                margin-left:5px;
+                input{height:30px;margin-bottom:8px;border:1px dashed #ababab;width:162px;background:#f1f1f1;} 
+                }
+                laber:nth-of-type(1){
+                    input{margin-top:5px;background:#fdfdfd;border:1px solid #ababab;}
+                } 
+            }
+            button{display:block;width:77px;height:72px;border:1px solid #ababab;background:#fff;margin-right:8px;margin-top:8px;line-height:72px;text-align: center;}
+        }
+    }
+    .inline-input{
+        height:30px;
+        margin:11px 8px;
+        display: flex;
+        justify-content: space-between;
+        div{
+            button{height:28px;border:1px solid #ababab;background:#fdfdfd;padding:0 4px;}
+        }
+    }
+}
+@media screen and (max-width: 1024px){
+    .tChild{
+        .left{width:100%;}
+    }
+}
+@media screen and (max-width: 768px){
+    .tChild{
+        .left{width:100%;}
+    }
+}
