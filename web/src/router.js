@@ -7,7 +7,7 @@ import Operator from './modules/operator_interface/OperatorComponent';
 import CollectMoney from './modules/shouyin/shouyinComponnet';
 
 export default [
-
+	
     <Route path="/" component={Operator}>
     	<Route path="login" component={LoginComponent} />
     	<Route path="app" component={AppComponent} />

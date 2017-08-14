@@ -4,6 +4,8 @@ var products = require("./products.js");
 
 var user = require("./user.js");
 
+var collectMoney = require("./collectMoney.js")
+
 exports.register = function(express){
 	//把express通过调用函专传递过来；
 	var app = express();
@@ -29,7 +31,8 @@ exports.register = function(express){
     //把app传递到用户产品js 页面；前提先引入页面模块；
     products.register(app);
     user.register(app);
-   console.log(888)
+    collectMoney.register(app);
+   	console.log(888)
 
     console.log(999)
     return app

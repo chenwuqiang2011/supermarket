@@ -71,9 +71,20 @@ class ShouyinComponent extends React.Component{
 		}
 	}
 	collect(){
-		var barCode = document.getElementById('#barCode').value;
-		this.props.cashier(barCode);
-		console.log(666);
+		var barCode = document.getElementById('barCode').value;
+		this.props.cashier(barCode).then(function(res){
+			console.log(res);
+			for(var i =0;i<res.response;i++){
+				console.log(i);
+				if(res.response[i].barCode == barCode){
+					console.log(888);
+				}else{
+					console.log(1);
+				}
+			}
+			
+		});
+		
 	}
 	render(){
 		return(
@@ -86,7 +97,7 @@ class ShouyinComponent extends React.Component{
 			   			<div className="fChild">
 			   				<div className="screen">
 			   					<span>商品编号/条码:</span>
-			   					<input type="text" id="barCode" onClick="collect"/>
+			   					<input type="text" id="barCode" onBlur={this.collect.bind(this)}/>
 			   					<span>小票流水号:00000000000</span>
 			   				</div>
 			   				<Table style={{width: '100%'}}
