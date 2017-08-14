@@ -5,7 +5,7 @@ var products = require("./products.js");
 var user = require("./user.js");
 
 exports.register = function(express){
-	//把express通过调用函专传递过来；
+	//把express通过调用函数传递过来；
 	var app = express();
 
 	//跨域；

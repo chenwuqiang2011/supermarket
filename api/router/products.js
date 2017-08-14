@@ -7,7 +7,7 @@ var sql = require('../mysql/sql_products');
 
 exports.register = function (app){
 	//用户登录
-	app.get("/query",function(request,response){
+	app.post("/query",urlencodedParser, function(request,response){
 
 		//请求数据库；
 		sql.query("products", request.body, function(data){

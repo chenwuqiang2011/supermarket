@@ -1,0 +1,21 @@
+.addUser{
+	width:100%;
+	height:100%;
+	display:flex;
+	flex-direction: row;
+
+	.userList{
+		width:70%;
+		height:100%;
+		box-sizing:border-box;
+	}
+	.add{
+		flex:1;
+		padding:30px 10px;
+		box-sizing:border-box;
+		border-left:2px solid #ddd;
+		height:100%;
+		.el-form-item__label{width: 80px!important;}
+		.name{width: 90%}
+	}
+}

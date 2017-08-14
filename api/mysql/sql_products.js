@@ -19,6 +19,9 @@ module.exports = {
 			console.log(888,results);
 			callback(results)
 		})
+	},
+	update:function(table,data,callback){
+		
 	}
 }
 

@@ -18,4 +18,5 @@ class Operator extends React.Component{
 		)
 	}
 }
+
 export default Operator;

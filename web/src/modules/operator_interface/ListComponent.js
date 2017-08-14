@@ -11,11 +11,12 @@ class ListComponent extends React.Component{
 
 	}
 	addProducts(){
-	console.log(888)
-	console.log(Link)
-	hashHistory.push("/app");
-		
+		hashHistory.push("/app");
 	}
+	addUser(){
+		hashHistory.push("/add");
+	}
+	
 	render(){
 		return (
 	
@@ -37,7 +38,7 @@ class ListComponent extends React.Component{
 		              <Menu.Item index="3-2"><i className="el-icon-caret-right "></i>商品浏览</Menu.Item>
 		          </Menu.SubMenu>
 		          <Menu.SubMenu index="4" title={<span><i className="el-icon-information"></i>用户管理</span>}>
-		              <Menu.Item index="4-1"><i className="el-icon-caret-right "></i>添加用户</Menu.Item>
+		              <Menu.Item index="4-1"><i className="el-icon-caret-right "></i><span onClick = {this.addUser.bind(this)}>添加用户</span></Menu.Item>
 		              <Menu.Item index="4-2"><i className="el-icon-caret-right "></i>删除用户</Menu.Item>
 		          </Menu.SubMenu>
 		        </Menu>
