@@ -12,22 +12,19 @@ export default function(state = {loading: false,name:null,logout:"登录"}, acti
             reState.loading = true
             break
         case types.SUCCESS:
-
-            reState.data = action.response
+console.log(action.response[0])
+            reState.data = action.response[0]
+            
             reState.lastFetched = action.lastFetched
             reState.loading = false
             break
         case types.FAILURE:
             reState.error = action.error
             reState.loading = false
-            break
-        case 'username':
-            reState.name = action.data
-            reState.logout = "退出"
-            break
-        case 'signout':
-            reState.name = null
-            reState.logout = "登录"
+            break 
+        case "updateUsername":
+            reState.name = action.response
+            reState.loading = false
             break
     }
     return reState;

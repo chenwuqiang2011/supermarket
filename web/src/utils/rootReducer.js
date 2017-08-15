@@ -1,4 +1,5 @@
 import login from '../modules/login/LoginReducer'
+import add from '../modules/login/AddReducer'
 import {routerReducer as router} from 'react-router-redux'
 
 import {combineReducers} from 'redux'
@@ -7,7 +8,8 @@ import cashier from '../modules/shouyin/shouyinReducer'
 const rootReducer = combineReducers({
     login,
     router,
-    cashier
+    cashier,
+    add
 })
 
 export default rootReducer
