@@ -1,8 +1,7 @@
 import * as types from '../../utils/commonConstant'
 
 export default function(state = {loading: false}, action){
-    let reState = JSON.parse(JSON.stringify(state))
-    console.log(reState);
+    let reState = JSON.parse(JSON.stringify(state));
     switch(action.type){
         case types.REQUEST:
             reState.loading = true
@@ -17,6 +16,5 @@ export default function(state = {loading: false}, action){
             reState.loading = false
             break
     }
-  
     return reState;
 }

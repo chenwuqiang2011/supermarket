@@ -15,8 +15,7 @@ sql.connect();
 module.exports = {
 	collect:function(table,data,callback){
 		//查询数据库
-		//正则匹配
-		sql.query("select * from products ",function(err,results,fields){
+		sql.query("select * from products where barCode = "+ data.barCode,function(err,results,fields){
 			console.log(888,results);
 			callback(results)
 		})

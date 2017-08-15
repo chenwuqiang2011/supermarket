@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { Table,Input } from 'element-react';
 import '../../static/styles/shouyin.scss';
 import * as ShouyinActions from './shouyinAction';
+import $ from './jquery3.1.1.js'
 
 class ShouyinComponent extends React.Component{
 	constructor(props) {
@@ -11,84 +12,84 @@ class ShouyinComponent extends React.Component{
 		    columns: [
 		      {
 		        label: "条码",
-		        prop: "date",
+		        prop: "barCode",
+		        width: 200
 		      },
 		      {
 		        label: "品名",
 		        prop: "name",
-		        width: 400
+		        width: 300
 		      },
 		      {
-		        label: "单价",
-		        prop: "address"
+		        label: "规格",
+		        prop: "standard"
 		      },
 		      {
-		        label: "特价",
-		        prop: "address"
+		        label: "进货价",
+		        prop: "purchasingCode"
 		      },
 		      {
-		        label: "折扣",
-		        prop: "address"
+		        label: "销售价",
+		        prop: "salesPrice"
+		      },
+		      {
+		        label: "分类",
+		        prop: "classify"
+		      },
+		      {
+		        label: "单位",
+		        prop: "unit"
 		      },
 		      {
 		        label: "数量",
-		        prop: "address"
-		      },
-		      {
-		        label: "金额",
-		        prop: "address"
+		        prop: "qty"
 		      }
 		    ],
 		    data: [{
-		      date: '',
-		      name: '',
-		      address: ''
-		    }, {
-		      date: '',
-		      name: '',
-		      address: ''
-		    }, {
-		      date: '',
-		      name: '',
-		      address: ''
-		    }, {
-		      date: '',
-		      name: '',
-		      address: ''
-		    }, {
-		      date: '',
-		      name: '',
-		      address: ''
-		    }, {
-		      date: '',
-		      name: '',
-		      address: ''
-		    }, {
-		      date: '',
-		      name: '',
-		      address: ''
-		    }]
+			      barCode: '',
+			      name: '',
+			      standard: '',
+			      purchasingCode: '',
+			      salesPrice: '',
+			      classify: '',
+			      unit: '',
+			      qty:''
+			}]
 		}
 	}
 	collect(){
 		var barCode = document.getElementById('barCode').value;
 		this.props.cashier(barCode).then(function(res){
-			console.log(res);
-			for(var i =0;i<res.response;i++){
-				console.log(i);
-				if(res.response[i].barCode == barCode){
-					console.log(888);
-				}else{
-					console.log(1);
-				}
+			var tr = $('.el-table__body').children().find('tr');
+			console.log(tr);
+			if(this.state.data[0].barCode==''){
+				var aa = this.props.data.splice(this.state.data[0])
+			}else{
+				contrast(tr,this.state.data,this.props.data);
 			}
+			console.log(aa);
+			this.setState({
+				data:Object.assign(this.state.data, aa)
+			})
 			
-		});
-		
+		}.bind(this));
+	}
+	settle_accounts(){
+		/*console.log(this.state.data[0].salesPrice);*/
+		var tr = $('.el-table__body').children().find('tr');
+		/*console.log(tr.length);*/
+	}
+	balance(){
+		var target = $('.el-table__body').children().find('td');
+		var content = target[1].innerText;
+		var price = target[4].innerText;
+		console.log(content,price);
+		this.props.pointer(content,price).then(function(res){
+			console.log(res);
+		})
 	}
 	render(){
 		return(
-				 
 			   <div className="bigbox">
 			   		<div className="head">
 			   			<span>老晨晨</span>
@@ -97,7 +98,7 @@ class ShouyinComponent extends React.Component{
 			   			<div className="fChild">
 			   				<div className="screen">
 			   					<span>商品编号/条码:</span>
-			   					<input type="text" id="barCode" onBlur={this.collect.bind(this)}/>
+			   					<input type="text" id="barCode" onBlur={this.collect.bind(this)} onChange={this.settle_accounts.bind(this)}/>
 			   					<span>小票流水号:00000000000</span>
 			   				</div>
 			   				<Table style={{width: '100%'}}
@@ -125,7 +126,7 @@ class ShouyinComponent extends React.Component{
 				   				<div className="two">
 					   				<div className="stwo">
 					   					<span>应收:¥</span>
-					   					<span>0.00</span>
+					   					<span>{this.state.data[0].salesPrice}</span>
 					   				</div>
 					   				<div className="sthree">
 					   					<span>实收:</span>
@@ -141,7 +142,7 @@ class ShouyinComponent extends React.Component{
 				   					<laber>其他:<input disabled type="text"/></laber>
 				   					<laber>找零:<input disabled type="text"/></laber>
 				   				</div>
-				   				<button>结算打印</button>
+				   				<button onClick={this.balance.bind(this)}>结算打印</button>
 			   				</div>
 			   			</div>
 			   			<div className="inline-input">
@@ -169,7 +170,18 @@ class ShouyinComponent extends React.Component{
 	}
 }
 const mapStateToProps = state => ({
-    loading: state.login.loading,
-    data:state.login.data
+    loading: state.cashier.loading,
+    data:state.cashier.data
 })
 export default connect(mapStateToProps, ShouyinActions)(ShouyinComponent)
+
+function contrast(tr,state,props){
+	for(var i = 0;i<tr.length-1;i++){
+		if(state[i].barCode == props[0].barCode){
+			state[i].qty++;
+		}else{
+			var aa = state.push(contrast(tr,state[i],props))
+		}
+	}
+	return aa;
+}
