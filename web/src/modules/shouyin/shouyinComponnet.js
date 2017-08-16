@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { Table,Input } from 'element-react';
+import { Table,Input} from 'element-react';
 import '../../static/styles/shouyin.scss';
 import * as ShouyinActions from './shouyinAction';
-import $ from './jquery3.1.1.js'
+import $ from './jquery3.1.1.js';
+import {Link} from 'react-router';
 
 class ShouyinComponent extends React.Component{
 	constructor(props) {
@@ -57,22 +58,33 @@ class ShouyinComponent extends React.Component{
 			}]
 		}
 	}
-	collect(){
-		var barCode = document.getElementById('barCode').value;
-		this.props.cashier(barCode).then(function(res){
-			var tr = $('.el-table__body').children().find('tr');
-			console.log(tr);
-			if(this.state.data[0].barCode==''){
-				var aa = this.props.data.splice(this.state.data[0])
-			}else{
-				contrast(tr,this.state.data,this.props.data);
-			}
-			console.log(aa);
-			this.setState({
-				data:Object.assign(this.state.data, aa)
-			})
-			
-		}.bind(this));
+	collect(event){
+		if(event.keyCode == 13){
+			var barCode = document.getElementById('barCode').value;
+			var aa;
+			this.props.cashier(barCode).then(function(res){
+				var tr = $('.el-table__body').children().find('tr');
+				console.log(tr);
+				if(this.state.data[0].barCode==''){console.log(333)
+					aa = this.props.data.splice(this.state.data[0])
+				}else{console.log(76666)
+					for(var i = 0;i<tr.length-1;i++){
+						if(this.state.data[i].barCode == this.props.data[0].barCode){
+							this.state.data[i].qty++;
+						return;
+						}
+					}
+						aa = this.state.data.push(this.props.data[0])
+					
+				}
+				console.log(aa);
+				this.setState({
+					data:Object.assign(this.state.data, aa)
+				})
+				
+			}.bind(this));
+		}
+		
 	}
 	settle_accounts(){
 		/*console.log(this.state.data[0].salesPrice);*/
@@ -92,13 +104,15 @@ class ShouyinComponent extends React.Component{
 		return(
 			   <div className="bigbox">
 			   		<div className="head">
-			   			<span>老晨晨</span>
+			   			<Link to="/"><i className="el-icon-d-arrow-left"></i></Link>
+			   			<span>千锋隔壁超市收银系统
+</span>
 			   		</div>
 			   		<div className="body">
 			   			<div className="fChild">
 			   				<div className="screen">
 			   					<span>商品编号/条码:</span>
-			   					<input type="text" id="barCode" onBlur={this.collect.bind(this)} onChange={this.settle_accounts.bind(this)}/>
+			   					<input type="text" id="barCode" onKeyUp={this.collect.bind(this)} onChange={this.settle_accounts.bind(this)}/>
 			   					<span>小票流水号:00000000000</span>
 			   				</div>
 			   				<Table style={{width: '100%'}}

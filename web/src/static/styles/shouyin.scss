@@ -1,7 +1,16 @@
 *{margin:0;padding:0;}
 .bigbox{width:100%;height:100%;}
-.head{background:#444444;height:34px;width:100%;text-align: center;}
-.head span{margin:0 auto;font-size:19px;color:#fdfdfd;line-height: 34px;}
+.head{
+    background:#444444;height:34px;width:100%;text-align: center;
+    a{
+        float:left;
+        color:#fff;
+        line-height:34px;
+        margin-left:10px;
+        font-size:16px;
+    }
+}
+.head span{margin:0 auto;font-size:16px;color:#fdfdfd;line-height: 34px;}
 .body{
     background:#f1f1f1;
     overflow: hidden;
