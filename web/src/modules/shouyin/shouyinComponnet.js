@@ -73,8 +73,9 @@ class ShouyinComponent extends React.Component{
 							this.state.data[i].qty++;
 						return;
 						}
+						
 					}
-						aa = this.state.data.push(this.props.data[0])
+					aa = this.state.data.push(this.props.data[0])
 					
 				}
 				console.log(aa);
@@ -87,18 +88,28 @@ class ShouyinComponent extends React.Component{
 		
 	}
 	settle_accounts(){
-		/*console.log(this.state.data[0].salesPrice);*/
 		var tr = $('.el-table__body').children().find('tr');
-		/*console.log(tr.length);*/
+		console.log(tr.length);
 	}
 	balance(){
-		var target = $('.el-table__body').children().find('td');
-		var content = target[1].innerText;
-		var price = target[4].innerText;
-		console.log(content,price);
-		this.props.pointer(content,price).then(function(res){
-			console.log(res);
-		})
+		console.log(111111111111111,this.state.data)
+		var _data = "千锋隔壁超市收银系统\n*************************************\n";
+		var total = 0;
+		var res = this.state.data.map(function(item){
+			total += item.salesPrice*item.qty;
+			return  '\n'+"商品名称: "+item.name+'\n'+ "单品价格: "+item.salesPrice +'\n'+"数量: "+item.qty+'\n'+"-------------------单品总价: "+(item.salesPrice*item.qty).toFixed(2)+'\n'
+			
+		}).join('');
+		console.log(total);
+		_data += res + '\n'+'总价'+total + '\n'+"*************************************\n";
+		console.log(_data)
+		/*$.post(
+				'http://10.3.134.78:81/print',
+				{text:_data},
+				function(res){
+					console.log(res);
+				}
+		)*/
 	}
 	render(){
 		return(

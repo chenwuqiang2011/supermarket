@@ -21,6 +21,7 @@ class ListComponent extends React.Component{
 	}
 	addSupplier() {
 		hashHistory.push('/suppliers');
+	}
 	addUser(){
 		hashHistory.push("/add");
 	}
