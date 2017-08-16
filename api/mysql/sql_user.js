@@ -93,9 +93,12 @@ module.exports = {
 	allUser: function(table,data,callback){
 		//重新打开数据库；
 		open();
-console.log(1111111,data)
+		var pageNo = data.pageNo ? data.pageNo : 1;
+		var qty = data.qty ? data.qty : 10;
+		console.log(11111111,pageNo,qty)
+
 		//查询条件；var condition = "select * from user limit " + pageNo*qty + "," + qty;
-		var condition = "select * from user";
+		var condition = "select * from user limit " + (pageNo - 1)*qty + "," + qty;
 
 		sql.query(condition, function(err,results){
 			if(!err){

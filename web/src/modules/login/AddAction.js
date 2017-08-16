@@ -28,7 +28,7 @@ export function allUser(pageNo, qty){
         types: [constants.REQUEST, constants.SUCCESS, constants.FAILURE],
         path: 'allUser',
         method: 'post',
-        data: {pageNo, qty}
+        query: {pageNo, qty}
     }
 };
 export function deleteUser(id){
