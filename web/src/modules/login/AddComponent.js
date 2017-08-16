@@ -144,7 +144,11 @@ class AddAction extends React.Component {
             return;
         }
 
-        this.props.addUser(name, password, access).then(response=>{
+        //将所有用户重新发送到后端数据库；
+        var _user = JSON.stringify(this.props.data.data);
+        console.log(999999,_user)
+
+        this.props.addUser(name, password, access, _user).then(response=>{
             console.log(response,this.props.data)
             var res = this.props.data.statu;
             //提示是否添加成功
@@ -154,12 +158,7 @@ class AddAction extends React.Component {
                     type: 'success'
                 });
                 //更新用户；
-                 this.props.allUser().then(response=>{
-                    // console.log(response,this.props.data);
-                    this.setState({
-                        data: Object.assign(this.state.data, this.props.data.data)
-                    });
-                })
+                this.props.allUser()
             }else{
                 Message.error('对不起，用户已存在！')
             }

@@ -15,6 +15,7 @@ exports.register = function (app){
 			response.send(data);
 		})
 	});
+
 	//用户添加
 	app.post("/addUser",urlencodedParser, function(request,response){
 
@@ -24,6 +25,7 @@ exports.register = function (app){
 			response.send(data);
 		})
 	});
+
 	//查询所有用户；
 	app.post("/allUser",urlencodedParser, function(request,response){
 
@@ -32,12 +34,23 @@ exports.register = function (app){
 			//返回数据到页面；
 			response.send(data);
 		})
-	})
+	});
+
 	//删除用户；
 	app.post("/deleteUser",urlencodedParser, function(request,response){console.log("111,callback")
 
 		//请求数据库；
 		sql.deleteUser("user", request.body, function(data){
+			//返回数据到页面；
+			response.send(data);
+		})
+	});
+
+	//更改用户；
+	app.post("/updateUser",urlencodedParser, function(request,response){console.log("111,callback")
+
+		//请求数据库；
+		sql.updateUser("user", request.body, function(data){
 			//返回数据到页面；
 			response.send(data);
 		})
