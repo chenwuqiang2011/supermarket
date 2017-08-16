@@ -5,14 +5,13 @@
 
 import * as types from '../../utils/commonConstant'
 
-export default function(state = {loading: false,name:null,logout:"登录"}, action){
-    let reState = JSON.parse(JSON.stringify(state))
+export default function(state = {loading: false,name: null,data:{data:[]}}, action){
+    let reState = JSON.parse(JSON.stringify(state));
     switch(action.type){
         case types.REQUEST:
             reState.loading = true
             break
         case types.SUCCESS:
-console.log(action.response[0])
             reState.data = action.response[0]
             
             reState.lastFetched = action.lastFetched
@@ -23,7 +22,19 @@ console.log(action.response[0])
             reState.loading = false
             break 
         case "updateUsername":
-            reState.name = action.response
+            console.log(action.data)
+            reState.name = action.data
+            reState.loading = false
+            break 
+        case "allUser":
+            console.log(action.data)
+            reState.user = action.response[0]
+            reState.loading = false
+            break
+        case "aa":
+            console.log(action.data)
+            reState.allUser = action.response[0]
+            reState.user = action.response[0]
             reState.loading = false
             break
     }
