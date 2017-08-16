@@ -1,7 +1,26 @@
 .addproduct{
+	h1{
+		margin:20px 0;
+	}
 	width:600px;
 	margin:0 auto;
 	.input__input{
-		width:500px;
+		width:50%;
 	}
+	label{
+		display:flex;
+		justify-content:space-around;
+		margin:20px 0;
+		span{
+			display:block;
+			width:150px;
+			line-height:36px;
+		}
+	}
+	.select{
+		width:600px;
+	}
+}
+.content_right{
+	background:rgba(254,254,254,0.5)
 }

@@ -17,11 +17,12 @@ class ListComponent extends React.Component{
 		hashHistory.push("/addproduct");
 	}
 	search() {
-		hashHistory.push('/searchProduct')
+		hashHistory.push('/searchProduct');
 	}
 	addSupplier() {
 		hashHistory.push('/suppliers');
-	addUser(){
+	}
+	addUser() {
 		hashHistory.push("/add");
 	}
 	

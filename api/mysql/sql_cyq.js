@@ -48,12 +48,35 @@ module.exports = {
 
 	//删除商品
 	deleteProduct:function(table,data,callback){
-		var sql = 'delete from products where goodsId ='+data;
+		console.log(data)
+		var sql = 'delete from products where goodsId =' + data;
 		conn.query(sql,function(err,res){
 			callback(res)
 		})
-	}
+	},
 
+	//增加商品
+	addProduct:function(table,data,callback){
+		var sql = 'INSERT INTO products(goodsId,barCode,classify,goodsName,purchasingCost,salePrice,specification,unit,supplierId)VALUES(0,?,?,?,?,?,?,?,?)';
+
+		var sqlparam = [
+		data.barCode,
+		data.classify,
+		data.goodsName,
+		data.purchasingCost,
+		data.salePrice,
+		data.specification,
+		data.unit,
+		data.supplierId,
+		];
+		console.log(sqlparam)
+		conn.query(sql,sqlparam,function(err,res){
+			if(err){
+				console.log(err)
+			}
+       		console.log(res);        
+		})
+	}
 
 	
 }
