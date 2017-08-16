@@ -149,13 +149,19 @@ module.exports = {
 	updateUser: function(table,data,callback){
 		//重新打开数据库；
 		open();
+		var id = data.id;
+		var username = data.name;
+		var password = data.password;
+		var access = data.access;
+		var _user = JSON.parse(data._user);
 
 		//查询条件；
-		var condition = "update from user where id = ?";
-		console.log("222,update");
+		var userSql = 'UPDATE user SET name = ?,password = ?, access = ? WHERE Id = '+ id;
+		var userParams = [username, password, access];
+		
 
-		sql.query(condition, [data.id], function(err,results){
-			console.log(33,data.id,results)
+		sql.query(userSql, userParams, function(err,results){
+			console.log(1111111,id, userParams,results)
 			if(!err){
 
 				//查询结果；
@@ -163,12 +169,12 @@ module.exports = {
 					console.log("delete,length")
 					if(callback && typeof callback == "function"){
 
-						callback({statu:true,message:"用户删除成功！",data:results});
+						callback({statu:true,message:"用户更新成功！",data:_user});
 						sql.end();
 					}
 				}else{
 					console.log("err");
-					callback({statu:false,message:"用户删除不成功",data:null});
+					callback({statu:false,message:"用户更新不成功",data:_user});
 					sql.end();
 				}
 			}

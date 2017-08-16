@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
     router,
     products,
     supplier,
-    searchProduct
+    searchProduct,
     cashier,
     add
 })
