@@ -6,8 +6,10 @@ var user = require("./user.js");
 
 var cyq = require('./cyq.js');
 
+var collectMoney = require("./collectMoney.js")
+
 exports.register = function(express){
-	//把express通过调用函专传递过来；
+	//把express通过调用函数传递过来；
 	var app = express();
 
 	//跨域；
@@ -32,9 +34,7 @@ exports.register = function(express){
     products.register(app);
     user.register(app);
     cyq.register(app);
-   console.log(888)
-
-    console.log(999)
+    collectMoney.register(app);
     return app
 
 }

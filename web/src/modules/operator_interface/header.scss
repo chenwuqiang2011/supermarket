@@ -37,15 +37,18 @@ body,html{
 				font-size: 18px;
 				div{
 					margin-top:30px;
+					.username{color:red;font-size: 22px;}
+					.logout{display:inline-block;margin-right:20px;color:blue;}
+					.logout:hover{cursor:pointer;}
 				}
 			}
 		}
 		.content{
-			height:90%;
+			height:89.6%;
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
-			.content_left{height:100%;width:15%;background:#ddd;overflow-X:hidden;}
+			.content_left{height:100%;width:15%;background:#ddd;overflow-X:hidden;min-width:160px;}
 			.content_right{height:100%;flex:1;text-align: center;}
 		}
 	}

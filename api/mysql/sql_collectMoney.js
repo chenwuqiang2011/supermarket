@@ -13,16 +13,12 @@ var sql = mysql.createConnection({
 sql.connect();
 
 module.exports = {
-	query:function(table,data,callback){
-
+	collect:function(table,data,callback){
 		//查询数据库
-		sql.query("select * from products",function(err,results,fields){
+		sql.query("select * from products where barCode = "+ data.barCode,function(err,results,fields){
 			console.log(888,results);
 			callback(results)
-		});
-	},
-	update:function(table,data,callback){
-		
+		})
 	}
+	
 }
-
