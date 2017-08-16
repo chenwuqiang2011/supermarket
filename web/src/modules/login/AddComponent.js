@@ -13,6 +13,7 @@ class AddAction extends React.Component {
         this.state = {
             labelPosition: 'right',
             form: {
+              id:'',
               name: '',
               password: '',
               access: ''
@@ -108,12 +109,13 @@ class AddAction extends React.Component {
                 });
             });   
         }).on("click", ".edit", function(){
+            var _id = $(this).parents("tr").children().eq(0).text();
             var _name = $(this).parents("tr").children().eq(1).text();
             var _password = $(this).parents("tr").children().eq(2).text();
             var _access = $(this).parents("tr").children().eq(3).text();
             console.log(_name,_password,_access)
             _state.setState({
-                form:{ name: _name, password: _password,access: _access}
+                form:{ id: _id, name: _name, password: _password,access: _access}
             })
         })
     }
@@ -165,6 +167,53 @@ class AddAction extends React.Component {
         });
     }
 
+    update(){
+        var id = this.state.form.id;
+        var name = this.state.form.name;
+        var password = this.state.form.password;
+        var access = this.state.form.access;
+        console.log(name,password,access)
+        if(!name){
+            Message({
+                message: '用户名不能为空',
+                type: 'warning'
+            });
+            return;
+        }else if(!password){
+            Message({
+                message: '密码不能为空',
+                type: 'warning'
+            });
+            return;
+        }else if(!access){
+            Message({
+                message: '管理权限不能为空',
+                type: 'warning'
+            });
+            return;
+        }
+
+        //将所有用户重新发送到后端数据库；
+        var _user = JSON.stringify(this.props.data.data);
+        console.log(999999,_user)
+
+        this.props.updateUser(id, name, password, access, _user).then(response=>{
+            console.log(response,this.props.data)
+            var res = this.props.data.statu;
+            //提示是否添加成功
+            if(res){
+                Message({
+                    message: '恭喜你，用户更改成功！',
+                    type: 'success'
+                });
+                //更新用户；
+                this.props.allUser()
+            }else{
+                Message.error('用户更改失败！')
+            }
+        });
+    }
+
     render(){
 console.log('7777',this.props.data)        // console.log(this.refs.tab)
         return (
@@ -194,7 +243,7 @@ console.log('7777',this.props.data)        // console.log(this.refs.tab)
                            
                         </Form.Item>
                         <Button type = "primary" onClick = {this.query.bind(this)}>添加用户</Button>
-                        <Button type = "primary">更改用户</Button>
+                        <Button type = "primary" onClick = {this.update.bind(this)}>修改用户</Button>
                     </Form>
 
                 </div>
