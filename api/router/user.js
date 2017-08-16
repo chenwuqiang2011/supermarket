@@ -28,7 +28,7 @@ exports.register = function (app){
 
 	//查询所有用户；
 	app.post("/allUser",urlencodedParser, function(request,response){
-
+console.log("pageNo",request.body)
 		//请求数据库；
 		sql.allUser("user", request.body, function(data){
 			//返回数据到页面；

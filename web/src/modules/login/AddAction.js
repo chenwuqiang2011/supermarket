@@ -22,13 +22,13 @@ export function updateUser(id, name, password, access, _user){
     }
 };
 
-export function allUser(name,password){
+export function allUser(pageNo, qty){
 
     return {
         types: [constants.REQUEST, constants.SUCCESS, constants.FAILURE],
         path: 'allUser',
         method: 'post',
-        data: ""
+        data: {pageNo, qty}
     }
 };
 export function deleteUser(id){

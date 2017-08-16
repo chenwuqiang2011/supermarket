@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as addActions from './AddAction'
 import SpinnerComponent from '../spinner/SpinnerComponent'
-import { Input, Button, Form, Table, Message, Select, MessageBox} from "element-react";
+import { Input, Button, Form, Table, Message, Select, MessageBox, Pagination} from "element-react";
 import {hashHistory} from 'react-router';
 import "./addUser.scss";
 import $ from "../../libs/jquery-3.2.1.min";
@@ -118,6 +118,18 @@ class AddAction extends React.Component {
                 form:{ id: _id, name: _name, password: _password,access: _access}
             })
         })
+        // $(".el-pager").on("click", "li",function(){
+        //     var pageNo = $(this).text();
+        //     console.log(pageNo)
+        //     _this.allUser(pageNo);
+        // })
+    }
+
+    onCurrentChange(){console.log(this.refs)
+        var pageNo = this.refs.pageNo.state.internalCurrentPage;
+        var qty = this.refs.pageNo.state.internalPageSize;
+        console.log(qty,pageNo);
+        this.props.allUser(pageNo, qty)
     }
 
     query(){
@@ -215,16 +227,22 @@ class AddAction extends React.Component {
     }
 
     render(){
-console.log('7777',this.props.data)        // console.log(this.refs.tab)
         return (
             <div className = "addUser">
                 <div className = "userList">
                     <Table
-                       ref="tab"
                        style={{width: '100%'}}
                        columns={this.state.columns}
                        height={600}
                        data={this.props.data.data}
+                    />
+                     <Pagination layout="total, sizes, prev, pager, next, jumper" 
+                        ref = "pageNo"
+                        total={400} 
+                        pageSizes={[10, 20, 30, 40]} 
+                        pageSize={10} 
+                        currentPage={1}
+                        onCurrentChange = {this.onCurrentChange.bind(this)}
                     />
                 </div>
                 <div className = "add">
