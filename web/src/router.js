@@ -9,6 +9,7 @@ import SupplierComponent from './modules/supplier/SupplierComponent';
 import AddProductComponent from './modules/addproduct/AddProductComponent';
 import SearchComponent from './modules/search/SearchComponent';
 import CollectMoney from './modules/shouyin/shouyinComponnet';
+import pucharseComponent from './modules/purcharse/pucharseComponent';
 
 export default [
 	
@@ -17,7 +18,7 @@ export default [
     	<Route path="login" component={LoginComponent} />
     	<Route path="add" component={AddComponent} />
     	<Route path="app" component={AppComponent} />
-
+        <Route path='purcharse' component={pucharseComponent} />
     	<Route path="products" component={ProductsComponent} />
     	<Route path="suppliers" component={SupplierComponent} />
     	<Route path="addproduct" component={AddProductComponent} />

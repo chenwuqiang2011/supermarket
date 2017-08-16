@@ -58,7 +58,7 @@ module.exports = {
 		var username = data.name;
 		var password = data.password;
 		var access = data.access;
-		console.log(data)
+		var _user = JSON.parse(data._user);
 
 		//查询条件；
 		var condition = "select * from user where name = ? ";
@@ -71,17 +71,17 @@ module.exports = {
 					console.log("length")
 					if(callback && typeof callback == "function"){
 
-						callback({statu:false,message:"用户已存在！",data:results});
+						callback({statu:false,message:"用户已存在！",data:_user});
 						sql.end();
 					}
 				}else{
 					var  addSql = 'INSERT INTO user(id, name, password, access) VALUES(0,?,?,?)';
 					sql.query(addSql,[username, password, access], function(err,results){
-						console.log(9999999999999999,results)
+						
 
 						if(callback && typeof callback == "function"){
 
-							callback({statu:true,message:"用户名添加成功！",data:results});
+							callback({statu:true,message:"用户名添加成功！",data:_user});
 							sql.end();
 						}
 					})
@@ -140,6 +140,41 @@ module.exports = {
 				}else{
 					console.log("err");
 					callback({statu:false,message:"用户删除不成功",data:null});
+					sql.end();
+				}
+			}
+		})
+	},
+
+	updateUser: function(table,data,callback){
+		//重新打开数据库；
+		open();
+		var id = data.id;
+		var username = data.name;
+		var password = data.password;
+		var access = data.access;
+		var _user = JSON.parse(data._user);
+
+		//查询条件；
+		var userSql = 'UPDATE user SET name = ?,password = ?, access = ? WHERE Id = '+ id;
+		var userParams = [username, password, access];
+		
+
+		sql.query(userSql, userParams, function(err,results){
+			console.log(1111111,id, userParams,results)
+			if(!err){
+
+				//查询结果；
+				if(results.affectedRows > 0){
+					console.log("delete,length")
+					if(callback && typeof callback == "function"){
+
+						callback({statu:true,message:"用户更新成功！",data:_user});
+						sql.end();
+					}
+				}else{
+					console.log("err");
+					callback({statu:false,message:"用户更新不成功",data:_user});
 					sql.end();
 				}
 			}
