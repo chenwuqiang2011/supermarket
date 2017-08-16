@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {Form,Table,Button,Select,Pagination,Layout,Input,Checkbox,Radio,Switch,DatePicker,TimePicker} from 'element-react';
+import {Form,Table,Button,Select,Pagination,Layout,Input,Checkbox,Message,Switch,DatePicker,TimePicker} from 'element-react';
 import SpinnerComponent from '../spinner/SpinnerComponent';
 import './AddProduct.scss';
 import * as AddProductAction from './AddProductAction';
@@ -47,8 +47,12 @@ class AddProductComponent extends React.Component{
 
   	add() {
   		this.props.addproduct(this.state.form).then(function(res){
+
 		});
-  		console.log(this.state.form)
+		Message({
+    		message: '恭喜你，商品信息已录入',
+    		type: 'success'
+  		});
   	}
 
   	onChange(key, value) {
