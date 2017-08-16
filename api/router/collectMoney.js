@@ -10,7 +10,7 @@ exports.register = function (app){
 	app.post("/collectMoney", urlencodedParser,function(request,response){
 		/*console.log(request);*/
 		//请求数据库；
-		sql.collect("products", request.body, function(data){
+		sql.collect("money", request.body, function(data){
 			//返回数据到页面；
 			response.send(data);
 		})

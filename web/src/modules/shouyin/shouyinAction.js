@@ -12,7 +12,7 @@ export function cashier(barCode){
 export function pointer(content,price){
 	return {
 		types: [constants.REQUEST, constants.SUCCESS, constants.FAILURE],
-		path: 'http://10.3.134.100:81/print',
+		path: 'http://10.3.134.78:81/print',
 		method: 'post',
 		query:{content,price}
 	}
