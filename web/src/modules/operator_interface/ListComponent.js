@@ -25,10 +25,13 @@ class ListComponent extends React.Component{
 	addUser(){
 		hashHistory.push("/add");
 	}
+	purcharse(){
+		hashHistory.push("/purcharse");
+	}
+	
 	shouyin(){
 		hashHistory.push("collectMoney");
 	}
-	
 	render(){
 		return (
 	
@@ -45,9 +48,9 @@ class ListComponent extends React.Component{
 		              <Menu.Item index="2-1"><i className="el-icon-caret-right "></i><span>供应商录入</span></Menu.Item>
 		              <Menu.Item index="2-3"><i className="el-icon-caret-right "></i><span onClick={this.addSupplier.bind(this)} >供应商查询</span></Menu.Item>
 		          </Menu.SubMenu>
-		          <Menu.SubMenu index="3" title={<span><i className="el-icon-information"></i>库存管理</span>}>
-		              <Menu.Item index="3-1"><i className="el-icon-caret-right "></i>商品查询</Menu.Item>
-		              <Menu.Item index="3-2"><i className="el-icon-caret-right "></i>商品浏览</Menu.Item>
+		          <Menu.SubMenu index="3" title={<span><i className="el-icon-information"></i>出入库管理</span>}>
+		              <Menu.Item index="3-1"><i className="el-icon-caret-right "></i><span onClick = {this.purcharse.bind(this)}>商品入库</span></Menu.Item>
+		              <Menu.Item index="3-2"><i className="el-icon-caret-right "></i>商品出库</Menu.Item>
 		          </Menu.SubMenu>
 		          <Menu.SubMenu index="4" title={<span><i className="el-icon-information"></i>用户管理</span>}>
 		              <Menu.Item index="4-1"><i className="el-icon-caret-right "></i><span onClick = {this.addUser.bind(this)}>添加用户</span></Menu.Item>
