@@ -5,7 +5,7 @@
 
 import * as types from '../../utils/commonConstant'
 
-export default function(state = {loading: false}, action){ 
+export default function(state = {loading: false}, action){ //console.log(action.response)
     let reState = JSON.parse(JSON.stringify(state))
     switch(action.type){
         case types.REQUEST:
@@ -13,8 +13,8 @@ export default function(state = {loading: false}, action){
             break
         case types.SUCCESS:
             reState.data = action.response
-            reState.search = action.query
-            reState.pageNo = action.query.page
+
+            reState.search = action.body
             reState.lastFetched = action.lastFetched
             reState.loading = false
             break

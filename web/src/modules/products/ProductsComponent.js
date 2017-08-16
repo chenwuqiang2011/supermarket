@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux'
-import {Form,Input,Table,Button,Select} from 'element-react';
+import {Form,Input,Table,Button,Select,Pagination} from 'element-react';
 import SpinnerComponent from '../spinner/SpinnerComponent'
 import './Products.scss'
 import * as ProductsAction from './ProductsAction'
@@ -74,61 +74,44 @@ class ProductsComponent extends React.Component{
 		        fixed: 'right',
 		        width: 100,
 		        render: ()=>{
-		          return <span><Button type="text" size="small">删除</Button><Button type="text" size="small">编辑</Button></span>
+		          return <span><Button type="text" size="small" onClick={this.edit.bind(this)}>编辑</Button><Button type="text" size="small"onClick={this.remove.bind(this)} >删除</Button></span>
 		        }
 		      }
-		    ],
-		    options:[{
-		    	value:'选项1',
-		    	label:10
-		    },
-		    {
-		    	value:'选项2',
-		    	label:15
-		    },
-		    {
-		    	value:'选项3',
-		    	label:20
-		    },
-		    {
-		    	value:'选项4',
-		    	label:50
-		    }]
+		    ]
 		   
 		   
 		}
 	}
+	edit(){
+		console.log(666);
+		
+		
+	}
+	remove(){
+		console.log(888)
+	}
 	componentWillMount(){
 		console.log(this)
-		this.props.products({qty:20}).then(function(res){
+		this.props.products({qty:10}).then(function(res){
 		});
 		
 	}
 	onChange() {
-		var val = document.querySelector('.pageNum div input').value; 
+		var val = parseInt(document.querySelector('.pageNum .el-input__inner').value); 
+		console.log(val)
   		this.props.products({qty:val}).then(function(res){
 		});
 	}
-	search(){
-		var search = document.querySelector('.search').value;
-		this.props.productsSearch(search).then(function(res){
-		
+	CurrentChange(){
+		var val = parseInt(document.querySelector('.pageNum .el-input__inner').value); 
+		var current = document.querySelector('.pageNum li.active').innerText;
+		this.props.products({page:current,qty:val}).then(res=>{
 		});
+		
 	}
 	render() {
 	  return (
 	  	<div>
-	  	<Form>
-	  		<Form.Item>
-  			<Input placeholder="请输入条码/商品名" className="search" append={<Button type="primary" icon="search" onClick={this.search.bind(this)}>搜索</Button>} />
-  			<Select className="pageNum" value = {this.state.value} onChange={this.onChange.bind(this)}>{
-  				this.state.options.map(el => {
-          			return <Select.Option  key={el.value} label={el.label} value={el.value} />
-        		})
-  			}
-  			</Select>
-  			</Form.Item>
-	  	</Form>
 	    <Table
 	      style={{width: '100%'}}
 	      columns={this.state.columns}
@@ -137,11 +120,20 @@ class ProductsComponent extends React.Component{
 	      height={530}
 	    />
 	    <SpinnerComponent show={this.props.loading}/>
-	    <div className="changePage">
-		    <Button>上一页</Button>
-		    <Input	className="scan"/>
-		    <Button>下一页</Button>
-	    </div>
+	    <div className="block">
+        	<span className="demonstration"></span>
+        	<Pagination 
+        	className="pageNum" 
+        	onSizeChange={this.onChange.bind(this)} 
+        	layout="total, sizes, prev, pager, next, jumper" 
+        	total={3037} 
+        	pageSizes={[10, 15, 20, 50,100]} 
+        	pageSize={10} 
+        	currentPage={this.props.pageNo} 
+        	onCurrentChange={this.CurrentChange.bind(this)} 
+        	/>
+      	</div>
+
 	    </div>
 	  )
 	}    
@@ -151,7 +143,9 @@ class ProductsComponent extends React.Component{
 const mapStateToProps = state => {
     return {
     	loading: state.products.loading,
-    	data: state.products.data
+    	data: state.products.data,
+    	pageNo: state.products.pageNo,
+
  
     }
 }
