@@ -4,6 +4,8 @@ var products = require("./products.js");
 
 var user = require("./user.js");
 
+var cyq = require('./cyq.js');
+
 var collectMoney = require("./collectMoney.js")
 
 exports.register = function(express){
@@ -31,10 +33,8 @@ exports.register = function(express){
     //把app传递到用户产品js 页面；前提先引入页面模块；
     products.register(app);
     user.register(app);
+    cyq.register(app);
     collectMoney.register(app);
-   	console.log(888)
-
-    console.log(999)
     return app
 
 }

@@ -5,9 +5,16 @@
 	flex-direction: row;
 
 	.userList{
-		width:70%;
+		width:75%;
 		height:100%;
 		box-sizing:border-box;
+		span{
+			display: inline-block;
+			height: 100%;
+			margin:0 10px;
+			.icon{color: #6a6a6a;font-size: 18px}
+			.icon:hover{cursor:pointer;}
+		}
 	}
 	.add{
 		flex:1;
