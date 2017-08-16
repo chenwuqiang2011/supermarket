@@ -6,6 +6,7 @@ import SpinnerComponent from '../spinner/SpinnerComponent'
 import './Products.scss'
 import * as ProductsAction from './ProductsAction'
 
+
 class ProductsComponent extends React.Component{
 	constructor(props) {
   		super(props);

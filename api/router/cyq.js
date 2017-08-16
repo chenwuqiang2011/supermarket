@@ -22,13 +22,18 @@ exports.register = function (app){
 	//搜索数据
 	app.post('/getSearchProducts',urlencodedParser,function(req,res){
 		sql.getSearchProducts('products',req.body.key,function(data){
-			console.log(data)
 			res.send(data);
 		})
 	});
 	//删除数据
     app.post('/deleteProduct',urlencodedParser,function(req,res){
     	sql.deleteProduct('products',req.body,function(data){
+    		res.send(data)
+    	})
+    })
+    //新增
+    app.post('/addProduct',urlencodedParser,function(req,res){
+    	sql.addProduct('products',req.body,function(data){
     		res.send(data)
     	})
     })
