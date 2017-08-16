@@ -10,7 +10,7 @@ exports.register = function (app){
 	app.post("/query",urlencodedParser, function(request,response){
 
 		//请求数据库；
-		sql.query("products", request.body, function(data){
+		sql.query("products", request.query, function(data){
 			//返回数据到页面；
 			response.send(data);
 		})
