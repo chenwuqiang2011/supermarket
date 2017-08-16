@@ -64,35 +64,36 @@ class ShouyinComponent extends React.Component{
 			var aa;
 			this.props.cashier(barCode).then(function(res){
 				var tr = $('.el-table__body').children().find('tr');
-				console.log(tr);
-				if(this.state.data[0].barCode==''){console.log(333)
+				/*console.log(tr);*/
+				if(this.state.data[0].barCode==''){/*console.log(333)*/
 					aa = this.props.data.splice(this.state.data[0])
-				}else{console.log(76666)
+				}else{/*console.log(76666)*/
 					for(var i = 0;i<tr.length-1;i++){
 						if(this.state.data[i].barCode == this.props.data[0].barCode){
 							this.state.data[i].qty++;
 						return;
 						}
-						
 					}
 					aa = this.state.data.push(this.props.data[0])
-					
 				}
-				console.log(aa);
+				/*console.log(aa);*/
 				this.setState({
 					data:Object.assign(this.state.data, aa)
 				})
 				
 			}.bind(this));
+			var total = 0;
+			var _money = $('.smoney');
+			var res = this.state.data.map(function(item){
+				total += item.salesPrice*item.qty;
+				_money.html(total);
+			})
+			
 		}
 		
 	}
-	settle_accounts(){
-		var tr = $('.el-table__body').children().find('tr');
-		console.log(tr.length);
-	}
 	balance(){
-		console.log(111111111111111,this.state.data)
+		/*console.log(111111111111111,this.state.data)*/
 		var _data = "千锋隔壁超市收银系统\n*************************************\n";
 		var total = 0;
 		var res = this.state.data.map(function(item){
@@ -100,30 +101,29 @@ class ShouyinComponent extends React.Component{
 			return  '\n'+"商品名称: "+item.name+'\n'+ "单品价格: "+item.salesPrice +'\n'+"数量: "+item.qty+'\n'+"-------------------单品总价: "+(item.salesPrice*item.qty).toFixed(2)+'\n'
 			
 		}).join('');
-		console.log(total);
+		/*console.log(total);*/
 		_data += res + '\n'+'总价'+total + '\n'+"*************************************\n";
-		console.log(_data)
-		/*$.post(
+		/*console.log(_data)*/
+		$.post(
 				'http://10.3.134.78:81/print',
 				{text:_data},
 				function(res){
 					console.log(res);
 				}
-		)*/
+		)
 	}
 	render(){
 		return(
 			   <div className="bigbox">
 			   		<div className="head">
 			   			<Link to="/"><i className="el-icon-d-arrow-left"></i></Link>
-			   			<span>千锋隔壁超市收银系统
-</span>
+			   			<span>千锋隔壁超市收银系统</span>
 			   		</div>
 			   		<div className="body">
 			   			<div className="fChild">
 			   				<div className="screen">
 			   					<span>商品编号/条码:</span>
-			   					<input type="text" id="barCode" onKeyUp={this.collect.bind(this)} onChange={this.settle_accounts.bind(this)}/>
+			   					<input type="text" id="barCode" onKeyUp={this.collect.bind(this)}/>
 			   					<span>小票流水号:00000000000</span>
 			   				</div>
 			   				<Table style={{width: '100%'}}
@@ -151,7 +151,7 @@ class ShouyinComponent extends React.Component{
 				   				<div className="two">
 					   				<div className="stwo">
 					   					<span>应收:¥</span>
-					   					<span>{this.state.data[0].salesPrice}</span>
+					   					<span className="smoney">0.00</span>
 					   				</div>
 					   				<div className="sthree">
 					   					<span>实收:</span>
