@@ -13,13 +13,12 @@ class ShouyinComponent extends React.Component{
 		    columns: [
 		      {
 		        label: "条码",
-		        prop: "barCode",
-		        width: 200
+		        prop: "barCode"
 		      },
 		      {
 		        label: "品名",
-		        prop: "name",
-		        width: 300
+		        prop: "name"
+		       
 		      },
 		      {
 		        label: "规格",

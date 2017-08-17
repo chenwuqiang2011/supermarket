@@ -11,6 +11,7 @@ class AddAction extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            pageNo: 1,
             labelPosition: 'right',
             form: {
               id:'',
@@ -59,18 +60,14 @@ class AddAction extends React.Component {
         console.log(999,value);
         this.setState({
             form: Object.assign(this.state.form, { [key]: value })
-        });
-
-        
+        }); 
     }
     componentWillMount(){
         console.log(88888888888)
         //获取用户；
         this.props.allUser().then(response=>{
             console.log(response,this.props.data);
-            // this.setState({
-            //     data: Object.assign(this.state.data, this.props.data.data)
-            // });
+            console.log(this.props)
         });
     }
 
@@ -83,30 +80,24 @@ class AddAction extends React.Component {
             MessageBox.confirm('是否要删除此用户?', '提示', {
                 type: 'warning'
             }).then(() => {
-                //删除数据；
-                $(this).parents("tr").remove();
 
                 //获取当前删除用户的信息，更新数据库；
                 var currentId = $(this).parents("tr").children().eq(0).text();
-
+                var pageNo = _state.refs.pageNo.state.internalCurrentPage;
+   
                 //操作数据库删除用户；
-                _this.deleteUser(currentId).then(function(res){
+                _this.deleteUser(currentId, pageNo).then(function(res){
                     console.log(res)
-                    if(res.response.data.statu){
+                    
+                    if(res.response.statu){alert(999)
 
                         //弹框提示；
-                        Message({
-                          type: 'success',
-                          message: '删除成功!'
-                        });
+                        Message({type: 'success', message: '删除成功!'});
                     }
                 });
   
             }).catch(() => {
-                Message({
-                  type: 'info',
-                  message: '已取消删除'
-                });
+                Message({type: 'info',message: '已取消删除'});
             });   
         }).on("click", ".edit", function(){
             var _id = $(this).parents("tr").children().eq(0).text();
@@ -118,18 +109,21 @@ class AddAction extends React.Component {
                 form:{ id: _id, name: _name, password: _password,access: _access}
             })
         })
-        // $(".el-pager").on("click", "li",function(){
-        //     var pageNo = $(this).text();
-        //     console.log(pageNo)
-        //     _this.allUser(pageNo);
-        // })
     }
 
-    onCurrentChange(){console.log(this.refs)
+    onCurrentChange(){
         var pageNo = this.refs.pageNo.state.internalCurrentPage;
         var qty = this.refs.pageNo.state.internalPageSize;
         console.log(qty,pageNo);
         this.props.allUser(pageNo, qty)
+        console.log(this.props)
+    }
+    onSizeChange(){
+        var pageNo = this.refs.pageNo.state.internalCurrentPage;
+        var qty = this.refs.pageNo.state.internalPageSize;
+        console.log(qty,pageNo);
+        this.props.allUser(pageNo, qty)
+        console.log(this.props)
     }
 
     query(){
@@ -215,7 +209,7 @@ class AddAction extends React.Component {
             //提示是否添加成功
             if(res){
                 Message({
-                    message: '恭喜你，用户更改成功！',
+                    message: '恭喜你，用户修改成功！',
                     type: 'success'
                 });
                 //更新用户；
@@ -233,15 +227,16 @@ class AddAction extends React.Component {
                     <Table
                        style={{width: '100%'}}
                        columns={this.state.columns}
-                       height={600}
+                       height={550}
                        data={this.props.data.data}
                     />
                      <Pagination layout="total, sizes, prev, pager, next, jumper" 
                         ref = "pageNo"
-                        total={400} 
-                        pageSizes={[10, 20, 30, 40]} 
+                        total={this.props.data.total} 
+                        pageSizes={[10]} 
                         pageSize={10} 
-                        currentPage={1}
+                        currentPage={this.props.data.pageNo}
+                        onSizeChange = {this.onSizeChange.bind(this)}
                         onCurrentChange = {this.onCurrentChange.bind(this)}
                     />
                 </div>
