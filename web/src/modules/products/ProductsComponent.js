@@ -110,7 +110,7 @@ class ProductsComponent extends React.Component{
 		});
 		
 	}
-	render() {
+	render() {console.log(this.props.data)
 	  return (
 	  	<div>
 	    <Table
