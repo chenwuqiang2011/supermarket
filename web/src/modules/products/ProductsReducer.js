@@ -8,12 +8,13 @@ import * as types from '../../utils/commonConstant'
 
 export default function(state = {loading: false}, action){
     let reState = JSON.parse(JSON.stringify(state))
+        console.log(999999,action);
     switch(action.type){
         case types.PRODUCT_REQUEST:
             reState.loading = true
             break
         case types.PRODUCT_SUCCESS:
-            reState.data = action.response.data
+            reState.data = action.response.data;
             reState.pageNo = action.query.page
             reState.lastFetched = action.lastFetched
             reState.loading = false

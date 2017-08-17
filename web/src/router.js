@@ -4,6 +4,7 @@ import AppComponent from './modules/app/AppComponent';
 import LoginComponent from './modules/login/LoginComponent';
 import AddComponent from './modules/login/AddComponent';
 import Operator from './modules/operator_interface/OperatorComponent';
+import PostComponent from './modules/operator_interface/PostComponent';
 import ProductsComponent from './modules/products/ProductsComponent';
 import SupplierComponent from './modules/supplier/SupplierComponent';
 import AddProductComponent from './modules/addproduct/AddProductComponent';
@@ -28,7 +29,8 @@ export default [
     	<Route path="products" component={ProductsComponent}  onEnter={loginFilter}/>
     	<Route path="suppliers" component={SupplierComponent}  onEnter={loginFilter}/>
     	<Route path="addproduct" component={AddProductComponent}  onEnter={loginFilter}/>
-    	<Route path="searchProduct" component={SearchComponent}  onEnter={loginFilter}/>
+        <Route path="searchProduct" component={SearchComponent}  onEnter={loginFilter}/>
+    	<Route path="post_login" component={PostComponent}  onEnter={loginFilter}/>
     </Route>,
 	<Route path="collectMoney" component={CollectMoney} />
 ]

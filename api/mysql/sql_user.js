@@ -24,11 +24,12 @@ module.exports = {
 		//用户名和密码
 		var username = data.username;
 		var password = data.password;
+		var access = data.access;
 
 		//查询条件；
-		var condition = "select * from user where name = ? and password = ?";
+		var condition = "select * from user where name = ? and password = ? and access = ?";
 
-		sql.query(condition,[username,password],function(err,results){
+		sql.query(condition,[username, password, access],function(err,results){
 			if(!err){
 
 				//查询结果；

@@ -87,6 +87,8 @@ class ProductsComponent extends React.Component{
 
 	componentWillMount(){
 		this.props.products({qty:10}).then(function(res){
+			console.log(res)
+			alert(888)
 		});
 		
 	}
