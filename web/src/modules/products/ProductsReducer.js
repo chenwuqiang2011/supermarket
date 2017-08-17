@@ -8,17 +8,16 @@ import * as types from '../../utils/commonConstant'
 export default function(state = {loading: false}, action){ 
     let reState = JSON.parse(JSON.stringify(state))
     switch(action.type){
-        case types.REQUEST:
+        case types.PRODUCT_REQUEST:
             reState.loading = true
             break
-        case types.SUCCESS:
+        case types.PRODUCT_SUCCESS:
             reState.data = action.response
-            reState.search = action.query
             reState.pageNo = action.query.page
             reState.lastFetched = action.lastFetched
             reState.loading = false
             break
-        case types.FAILURE:
+        case types.PRODUCT_FAILURE:
             reState.error = action.error
             reState.loading = false
             break
