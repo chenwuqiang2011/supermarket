@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux'
-import {Form,Input,Table,Button,Select,Pagination} from 'element-react';
+import {Form,Input,Table,Button,Select,Pagination,MessageBox,message} from 'element-react';
 import SpinnerComponent from '../spinner/SpinnerComponent'
 import './Products.scss'
 import * as ProductsAction from './ProductsAction'
+import $ from '../addproduct/jquery3.1.1.js'
 
 
 class ProductsComponent extends React.Component{
@@ -17,7 +18,6 @@ class ProductsComponent extends React.Component{
 		        label: "货号",
 		        prop: "goodsId",
 		        width: 80,
-		        fixed: 'left'
 		      },
 		      {
 		        label: "条码",
@@ -72,10 +72,11 @@ class ProductsComponent extends React.Component{
 		      {
 		        label: "操作",
 		        prop: "zip",
-		        fixed: 'right',
 		        width: 100,
 		        render: ()=>{
-		          return <span><Button type="text" size="small" onClick={this.edit.bind(this)}>编辑</Button><Button type="text" size="small"onClick={this.remove.bind(this)} >删除</Button></span>
+		          return <div>
+		          <span className = "edit"><i className="el-icon-edit icon"></i></span>
+                  <span className = "delete"><i className="el-icon-delete icon"></i></span></div>
 		        }
 		      }
 		    ]
@@ -83,23 +84,43 @@ class ProductsComponent extends React.Component{
 		   
 		}
 	}
-	edit(){
-		console.log(666);
-		
-		
-	}
-	remove(){
-		console.log(888)
-	}
+
 	componentWillMount(){
-		console.log(this)
 		this.props.products({qty:10}).then(function(res){
 		});
 		
 	}
+
+
+	componentDidMount() {
+		var _this = this.props;
+        var _state = this;
+		$('table').on('click','.delete',function(){
+			MessageBox.confirm('是否要删除此用户?', '提示', {
+                type: 'warning'
+            }).then(() => {
+                //删除前端数据；
+                $(this).parents("tr").remove();
+                //获取当前删除用户的信息，更新数据库；
+                var currentId = $(this).parents("tr").children().eq(0).text();
+                _this.removeProduct(currentId).then(function(res){
+                	console.log(666)
+                    /*if(res.res.data.status){
+
+                        //弹框提示；
+                        Message({
+                          type: 'success',
+                          message: '删除成功!'
+                        })
+                    }*/
+                })
+            })
+
+		})
+	}
+
 	onChange() {
 		var val = parseInt(document.querySelector('.pageNum .el-input__inner').value); 
-		console.log(val)
   		this.props.products({qty:val}).then(function(res){
 		});
 	}
@@ -108,8 +129,8 @@ class ProductsComponent extends React.Component{
 		var current = document.querySelector('.pageNum li.active').innerText;
 		this.props.products({page:current,qty:val}).then(res=>{
 		});
-		
 	}
+
 	render() {
 	  return (
 	  	<div>
@@ -142,12 +163,12 @@ class ProductsComponent extends React.Component{
 }
 
 const mapStateToProps = state => {
+
     return {
     	loading: state.products.loading,
     	data: state.products.data,
     	pageNo: state.products.pageNo,
 
- 
     }
 }
 

@@ -8,15 +8,15 @@ import * as types from '../../utils/commonConstant'
 export default function(state = {loading: false}, action){
     let reState = JSON.parse(JSON.stringify(state))
     switch(action.type){
-        case types.REQUEST:
+        case types.SUPPLIER_REQUEST:
             reState.loading = true
             break
-        case types.SUCCESS:
+        case types.SUPPLIER_SUCCESS:
             reState.data = action.response
             reState.lastFetched = action.lastFetched
             reState.loading = false
             break
-        case types.FAILURE:
+        case types.SUPPLIER_FAILURE:
             reState.error = action.error
             reState.loading = false
             break
