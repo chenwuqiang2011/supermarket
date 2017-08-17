@@ -63,7 +63,7 @@ class AddAction extends React.Component {
         }); 
     }
     componentWillMount(){
-        console.log(88888888888)
+      
         //获取用户；
         this.props.allUser().then(response=>{
             console.log(response,this.props.data);
@@ -75,10 +75,6 @@ class AddAction extends React.Component {
         var _this = this.props;
         var _state = this;
 
-         $(".content_left").on("click","li",function(){
-            console.log(888888888,_state);
-            alert(88888888888888)
-        })
         //事件监听；
         $("table").on("click",".delete",function(){
             MessageBox.confirm('是否要删除此用户?', '提示', {
@@ -278,7 +274,8 @@ const mapStateToProps = state => ({
     loading: state.add.loading,
     allUser: state.add.allUser,
     data:state.login.data,
-    name:state.add.name
+    name:state.add.name,
+    store: state
 })
 export default connect(mapStateToProps, addActions)(AddAction)
 // export default AddActionadd

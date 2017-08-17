@@ -23,8 +23,8 @@ class LoginComponent extends React.Component {
             if(res){
                 Message({message: '恭喜你，登录成功！', duration: 2000, type: 'success',onClose: function(){
                      //跳转到主页；
-                    document.getElementById("username").value = "";
-                    document.getElementById("password").value = "";
+                    // document.getElementById("username").value = "";
+                    // document.getElementById("password").value = "";
                     hashHistory.push("add");}
                 });
                

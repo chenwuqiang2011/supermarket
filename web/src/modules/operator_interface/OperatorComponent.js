@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from 'react-redux'
+import { Input, Button, Form, Table, Message, Select, MessageBox, Pagination} from "element-react";
 
 import HeadComponent from "./HeadComponent";
 import ListComponent from "./ListComponent";
@@ -9,7 +10,14 @@ import "./header.scss";
 
 class Operator extends React.Component{
 	componentDidMount(){
-		var list = this.refs.list;
+		console.log(this.props.store)
+		
+		this.refs.list.addEventListener("click",()=>{
+            if(!this.props.store.login.name){
+            	Message({type: "info", message: "请先登录！"});
+            	return;
+            }
+        })
 		
 	}
 	render(){
@@ -28,6 +36,6 @@ class Operator extends React.Component{
 
 
 const mapStateToProps = state => ({
-    
+    store:state
 })
 export default connect(mapStateToProps)(Operator)
