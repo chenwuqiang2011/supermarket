@@ -157,7 +157,7 @@ class ShouyinComponent extends React.Component{
 			   				</div>
 			   				<div className="right">
 				   				<div>
-				   					<laber>交来:<input type="text"/></laber>
+				   					<laber>交来:<input type="text" className="pay"/></laber>
 				   					<laber>卡付:<input disabled type="text"/></laber>
 				   					<laber>其他:<input disabled type="text"/></laber>
 				   					<laber>找零:<input disabled type="text"/></laber>
