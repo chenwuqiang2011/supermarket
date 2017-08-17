@@ -137,6 +137,7 @@ class ProductsComponent extends React.Component{
 	}
 
 	render() {
+
 	  return (
 	  	<div>
 	    <Table
