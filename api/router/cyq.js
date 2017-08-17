@@ -37,4 +37,10 @@ exports.register = function (app){
     		res.send(data)
     	})
     })
+    //搜索供应商
+    app.get('/SearchSuppliers',urlencodedParser,function(req,res){
+    	sql.SearchSuppliers('supplier',req.query,function(data){
+    		res.send(data)
+    	})
+    })
 }

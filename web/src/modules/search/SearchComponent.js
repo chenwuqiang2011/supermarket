@@ -86,7 +86,6 @@ class SearchComponent extends React.Component{
 	search() {
 		var search = document.querySelector('.search input').value;
 		this.props.searchProduct(search).then(function(res){
-			//console.log(res)
 		});
 	}
 

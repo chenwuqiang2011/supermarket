@@ -53,8 +53,9 @@ module.exports = {
 	},
 
 	//模糊查询供应商
-	getSearchSuppliers:function(table,data,callback){
-		var sql = "select * from supplier where concat(supplierId,supplierName) like '%" + data + "%' ";
+	SearchSuppliers:function(table,data,callback){
+		console.log(data.key)
+		var sql = "select * from supplier where concat(supplierId,supplierName) like '%" + data.key + "%' ";
 		conn.query(sql,function(err,res){
 			if(!err){
 				callback({status:true,message:'查询成功',data:res})
@@ -63,7 +64,7 @@ module.exports = {
 				callback({status:false,message:'查询失败',data:null})
 			}
 		})
-	}
+	},
 
 	//删除商品
 	deleteProduct:function(table,data,callback){

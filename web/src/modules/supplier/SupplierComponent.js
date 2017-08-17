@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import {Form,Input,Table,Button,Select} from 'element-react';
+import {Form,Input,Table,Button,Select,Pagination} from 'element-react';
 import SpinnerComponent from '../spinner/SpinnerComponent';
 import './Supplier.scss';
 import * as SupplierAction from './SupplierAction';
@@ -67,12 +67,28 @@ class SupplierComponent extends React.Component{
 		
 	}
 	
+	onChange(){
+
+	}
+
+	CurrentChange(){
+
+	}
+
+	search(){
+		var search = document.querySelector('.search input').value;
+		console.log(search)
+		this.props.searchsupplier(search).then(function(res){
+			//console.log(res)
+		});
+	}
+
 	render() {
 	  return (
 	  	<div>
 	  	<Form>
 	  		<Form.Item>
-  			<Input placeholder="请输入供应商Id/供应商名称" className="search" append={<Button type="primary" icon="search">搜索</Button>} />
+  			<Input placeholder="请输入供应商Id/供应商名称" className="search" append={<Button onClick={this.search.bind(this)} type="primary" icon="search">搜索</Button>} />
   			</Form.Item>
 	  	</Form>
 	    <Table
@@ -83,11 +99,20 @@ class SupplierComponent extends React.Component{
 	      height={530}
 	    />
 	    <SpinnerComponent show={this.props.loading}/>
-	    <div className="changePage">
-		    <Button>上一页</Button>
-		    <Input	className="scan"/>
-		    <Button>下一页</Button>
-	    </div>
+	    <div className="block">
+        	<span className="demonstration"></span>
+        	<Pagination 
+        	ref = "pageNo"
+        	className="pageNum" 
+        	onSizeChange={this.onChange.bind(this)} 
+        	layout="total, sizes, prev, pager, next, jumper" 
+        	total={13} 
+        	pageSizes={[10]} 
+        	pageSize={10} 
+        	currentPage={this.props.pageNo} 
+        	onCurrentChange={this.CurrentChange.bind(this)} 
+        	/>
+      	</div>
 	    </div>
 	  )
 	}    
