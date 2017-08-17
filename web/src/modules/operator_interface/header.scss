@@ -48,8 +48,8 @@ body,html{
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
-			.content_left{height:100%;width:15%;background:#ddd;overflow-X:hidden;min-width:160px;}
-			.content_right{height:100%;flex:1;text-align: center;}
+			.content_left{height:100%;width:15%;background:#ddd;border:1px solid #aaa;overflow-X:hidden;min-width:160px;}
+			.content_right{height:100%;flex:1;text-align: center;.el-pagination{margin-top:30px;}}
 		}
 	}
 }

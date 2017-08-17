@@ -7,6 +7,7 @@ import products from '../modules/products/ProductsReducer'
 import supplier from '../modules/supplier/SupplierReducer'
 import searchProduct from '../modules/search/SearchReducer'
 import cashier from '../modules/shouyin/shouyinReducer'
+import addproduct from '../modules/addproduct/AddProductReducer'
 
 
 const rootReducer = combineReducers({
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     supplier,
     searchProduct,
     cashier,
-    add
+    add,
+    addproduct
 })
 
 export default rootReducer

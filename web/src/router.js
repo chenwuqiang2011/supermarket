@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route} from 'react-router'
+import {Route, IndexRoute} from 'react-router'
 import AppComponent from './modules/app/AppComponent';
 import LoginComponent from './modules/login/LoginComponent';
 import AddComponent from './modules/login/AddComponent';
@@ -15,6 +15,7 @@ export default [
 	
 
     <Route path="/" component={Operator}>
+    	<IndexRoute component={LoginComponent}/>
     	<Route path="login" component={LoginComponent} />
     	<Route path="add" component={AddComponent} />
     	<Route path="app" component={AppComponent} />

@@ -5,6 +5,7 @@ export function ajaxMiddleware({dispatch, getState}){
     return next => action => {
         const {
             types,
+            name,
             shouldCallAPI = () => true,
             query = {},
             payload = {},
@@ -44,7 +45,8 @@ export function ajaxMiddleware({dispatch, getState}){
                 response => dispatch(Object.assign({}, { query }, { payload }, {
                     type: successType,
                     response: response,
-                    lastFetched: Date.now()
+                    lastFetched: Date.now(),
+                    name: name
                 })),
                 error => dispatch(Object.assign({}, { query }, { payload }, {                    
                     type: failureType,
