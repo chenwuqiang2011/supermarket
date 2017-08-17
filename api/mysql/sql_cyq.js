@@ -16,6 +16,12 @@ module.exports = {
 
 	//商品分页加载；
 	getProducts:function(table,data,callback){
+		var total = 0;
+		var _condition = "select * from products";
+		conn.query(_condition, function(err,res){
+			total = res.length;
+		});
+
 		var obj = {page:1,qty:20};
 		var targetObj = {};
 		Object.assign(targetObj,obj,data)
@@ -24,7 +30,7 @@ module.exports = {
         var sql = 'select * from products limit '+page*qty+','+qty;
         //select * from products limit (pageNode-1)*qty,qty
         conn.query(sql,function(err,res){
-        	callback(res);
+        	callback({status:true,message:'获取成功',data:res,total:total});
 
         })
 	},
@@ -46,17 +52,50 @@ module.exports = {
 		})
 	},
 
-	//删除商品
-	deleteProduct:function(table,data,callback){
-		console.log(data)
-		var sql = 'delete from products where goodsId = ? ';
-		var sqlparam = [data.goodsId];
-		conn.query(sql,sqlparam,function(err,res){
+	//模糊查询供应商
+	getSearchSuppliers:function(table,data,callback){
+		var sql = "select * from supplier where concat(supplierId,supplierName) like '%" + data + "%' ";
+		conn.query(sql,function(err,res){
 			if(!err){
-				callback({status:true,message:"删除商品成功",data:res})
+				callback({status:true,message:'查询成功',data:res})
 			}else{
 				console.log(err)
-				callback({status:false,message:"删除商品失败",data:null})
+				callback({status:false,message:'查询失败',data:null})
+			}
+		})
+	},
+
+	//删除商品
+	deleteProduct:function(table,data,callback){
+		//所有数据数量
+		var total = 0;
+		var _condition = "select * from products";
+		conn.query(_condition, function(err,res){
+			total = res.length;
+		});
+
+		var obj = {page:1,qty:20};
+		var targetObj = {};
+
+		Object.assign(targetObj,obj,data)
+		var page = Number(targetObj.page - 1);
+        var qty = Number(targetObj.qty);
+        console.log('data',data)
+        console.log('obj',targetObj)
+        var sql1 = 'delete from products where goodsId = ? ';
+        var sqlparam = [data.id];
+        var sql2 = 'select * from products limit '+page*qty+','+qty;
+        //select * from products limit (pageNode-1)*qty,qty
+        
+
+		conn.query(sql1,sqlparam,function(err,res){
+			if(!err){
+				conn.query(sql2,function(err,res){
+        			callback({status:true,message:'删除成功',data:res,total:total});
+        		})
+			}else{
+				console.log(err)
+				
 			}
 			
 		})
@@ -78,10 +117,14 @@ module.exports = {
 		];
 		console.log(sqlparam)
 		conn.query(sql,sqlparam,function(err,res){
-			if(err){
+			if(!err){
+				callback({status:true,message:'添加成功',date:res})
+			}else{
 				console.log(err)
+				callback({status:false,message:'添加失败',date:null})
 			}
-       		console.log(res);        
+       		 
+       		       
 		})
 	}
 

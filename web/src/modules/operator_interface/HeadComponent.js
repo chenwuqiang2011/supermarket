@@ -12,7 +12,7 @@ class HeadComponent extends React.Component{
     	console.log(this.props)
     }
     logout(){
-    	console.log(333)
+    	
     	hashHistory.push("/login");
     	this.props.signout();
     }
@@ -48,3 +48,5 @@ const mapStateToProps = state => ({
 
 })
 export default connect(mapStateToProps,loginActions)(HeadComponent);
+
+

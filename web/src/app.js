@@ -14,3 +14,5 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('app')
 )
+
+export default function(store){console.log(233333333,store)}
