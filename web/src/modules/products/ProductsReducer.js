@@ -13,7 +13,7 @@ export default function(state = {loading: false}, action){
             reState.loading = true
             break
         case types.PRODUCT_SUCCESS:
-            reState.data = action.response.data
+            reState.data = action.response.data;
             reState.pageNo = action.query.page
             reState.lastFetched = action.lastFetched
             reState.loading = false
