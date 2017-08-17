@@ -9,7 +9,7 @@ export function cashier(barCode){
     }
 }
 
-/*export function pointer(content,price){
+export function pointer(content,price){
 	return {
 		types: [constants.REQUEST, constants.SUCCESS, constants.FAILURE],
 		path: 'http://10.3.134.78:81/print',
@@ -17,4 +17,3 @@ export function cashier(barCode){
 		query:{text:''}
 	}
 }
-*/
