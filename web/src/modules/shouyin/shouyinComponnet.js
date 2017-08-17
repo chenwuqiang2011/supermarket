@@ -14,12 +14,12 @@ class ShouyinComponent extends React.Component{
 		      {
 		        label: "条码",
 		        prop: "barCode",
-		        width: 200
+		        width: 180
 		      },
 		      {
 		        label: "品名",
 		        prop: "name",
-		        width: 300
+		        width: 250
 		      },
 		      {
 		        label: "规格",
@@ -46,70 +46,64 @@ class ShouyinComponent extends React.Component{
 		        prop: "qty"
 		      }
 		    ],
-		    data: [{
-			      barCode: '',
-			      name: '',
-			      standard: '',
-			      purchasingCode: '',
-			      salesPrice: '',
-			      classify: '',
-			      unit: '',
-			      qty:''
-			}]
+		    data: []
 		}
 	}
 	collect(event){
 		if(event.keyCode == 13){
 			var barCode = document.getElementById('barCode').value;
 			var aa;
+			var total = 0;
+			var _qty = 0;
+			var _money = $('.smoney');
+			var _number = $('.number');
+			var res = this.state.data.map(function(item){
+				total += item.salesPrice*item.qty;
+				_qty += item.qty;
+				_money.html((total).toFixed(2));
+				_number.html(_qty);
+			})
 			this.props.cashier(barCode).then(function(res){
-				var tr = $('.el-table__body').children().find('tr');
-				/*console.log(tr);*/
-				if(this.state.data[0].barCode==''){/*console.log(333)*/
-					aa = this.props.data.splice(this.state.data[0])
-				}else{/*console.log(76666)*/
-					for(var i = 0;i<tr.length-1;i++){
+				if(this.state.data.length == 0){
+					aa = this.state.data.push(this.props.data[0]);
+				}else{
+					for(var i =0; i <this.state.data.length;i++){
 						if(this.state.data[i].barCode == this.props.data[0].barCode){
 							this.state.data[i].qty++;
-						return;
+							return;
 						}
 					}
-					aa = this.state.data.push(this.props.data[0])
+					aa = this.state.data.push(this.props.data[0]);
 				}
-				/*console.log(aa);*/
 				this.setState({
 					data:Object.assign(this.state.data, aa)
 				})
-				
 			}.bind(this));
-			var total = 0;
-			var _money = $('.smoney');
-			var res = this.state.data.map(function(item){
-				total += item.salesPrice*item.qty;
-				_money.html(total);
-			})
-			
+			if($('#barCode').val() != ''){
+				console.log(666);
+				$("#barCode").val('').focus();
+			}
 		}
 		
 	}
 	balance(){
-		/*console.log(111111111111111,this.state.data)*/
 		var _data = "千锋隔壁超市收银系统\n*************************************\n";
 		var total = 0;
+		var _date = new Date();
+		console.log(_date.getDate());
 		var res = this.state.data.map(function(item){
 			total += item.salesPrice*item.qty;
-			return  '\n'+"商品名称: "+item.name+'\n'+ "单品价格: "+item.salesPrice +'\n'+"数量: "+item.qty+'\n'+"-------------------单品总价: "+(item.salesPrice*item.qty).toFixed(2)+'\n'
+			return  '\n'+"商品名称: "+"    单价: "+"    数量: "+"   总价: "+'\n'+item.name+'\n'+ item.barCode+"  "+item.salesPrice +"      "+item.qty+"      "+(item.salesPrice*item.qty).toFixed(2)+'\n'
 			
 		}).join('');
-		/*console.log(total);*/
-		_data += res + '\n'+'总价'+total + '\n'+"*************************************\n";
-		/*console.log(_data)*/
+		_data += res + '\n'+'总价:'+total + '\n'+"*************************************\n"+'\n'+'收银员： '+'陈胖胖'+'\n'+'买单时间:'+_date.getFullYear()+'.'+_date.getMonth()+'.'+_date.getDate()+'  '+_date.getHours()+':'+_date.getMinutes()+':'+_date.getSeconds();
+		console.log(_data)
 		$.post(
-				'http://10.3.134.78:81/print',
-				{text:_data},
-				function(res){
-					console.log(res);
-				}
+			'http://10.3.134.78:81/print',
+			{text:_data},
+			function(res){
+				console.log(res);
+			}
 		)
 	}
 	render(){
@@ -130,6 +124,7 @@ class ShouyinComponent extends React.Component{
 						      columns={this.state.columns}
 						      data={this.state.data}
 						      border={true}
+						      height={350}
 						    />
 			   			</div>
 			   			<div className="sChild">
@@ -146,7 +141,7 @@ class ShouyinComponent extends React.Component{
 			   				<div className="left">
 				   				<div className="one">
 				   					<span>数量:</span>
-				   					<span>0</span>
+				   					<span className="number">0</span>
 				   				</div>
 				   				<div className="two">
 					   				<div className="stwo">
@@ -194,10 +189,13 @@ class ShouyinComponent extends React.Component{
 		)
 	}
 }
-const mapStateToProps = state => ({
-    loading: state.cashier.loading,
-    data:state.cashier.data
-})
+const mapStateToProps = (state) => {
+    console.log(333,state);
+    return {
+        loading: state.cashier.loading,
+    	data:state.cashier.data
+    }
+}
 export default connect(mapStateToProps, ShouyinActions)(ShouyinComponent)
 
 function contrast(tr,state,props){
@@ -210,3 +208,4 @@ function contrast(tr,state,props){
 	}
 	return aa;
 }
+
