@@ -32,7 +32,7 @@ class LoginComponent extends React.Component {
             return;
         }else{
 
-            this.props.login(_username, _password).then(response=>{
+            this.props.login(_username, _password, _access).then(response=>{
                 console.log(this.props)
                 // console.log(response.response,this.props.data);
                 var res = this.props.data.statu;

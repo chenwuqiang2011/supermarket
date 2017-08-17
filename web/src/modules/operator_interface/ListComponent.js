@@ -35,8 +35,6 @@ class ListComponent extends React.Component{
 	}
 	render(){
 		return (
-	
-
 				<Layout.Col  className = "list">
 		        <Menu defaultActive="2" className="el-menu-vertical-demo" onOpen={this.onOpen.bind(this)} onClose={this.onClose.bind(this)}>
 		          <Menu.SubMenu index="1" title={<span><i className="el-icon-information"></i>商品管理</span>}>
