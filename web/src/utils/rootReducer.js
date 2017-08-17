@@ -1,4 +1,5 @@
 import login from '../modules/login/LoginReducer'
+import post from '../modules/operator_interface/PostReducer'
 import add from '../modules/login/AddReducer'
 import {routerReducer as router} from 'react-router-redux'
 
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     searchProduct,
     cashier,
     add,
-    addproduct
+    addproduct,
+    post
 })
 
 export default rootReducer

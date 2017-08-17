@@ -63,7 +63,7 @@ module.exports = {
 				callback({status:false,message:'查询失败',data:null})
 			}
 		})
-	}
+	},
 
 	//删除商品
 	deleteProduct:function(table,data,callback){

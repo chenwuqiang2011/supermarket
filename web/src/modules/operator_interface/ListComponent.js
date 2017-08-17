@@ -30,7 +30,8 @@ class ListComponent extends React.Component{
 	}
 	
 	shouyin(){
-		hashHistory.push("collectMoney");
+		
+		hashHistory.push("/post_login");
 	}
 	render(){
 		return (
