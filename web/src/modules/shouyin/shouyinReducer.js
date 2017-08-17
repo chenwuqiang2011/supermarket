@@ -1,17 +1,19 @@
-import * as types from '../../utils/commonConstant'
+import * as constants from './shouyinConstants';
 
 export default function(state = {loading: false}, action){
     let reState = JSON.parse(JSON.stringify(state));
+    console.log(333,state,action);
     switch(action.type){
-        case types.REQUEST:
+        case constants.cashierREQUEST:
             reState.loading = true
             break
-        case types.SUCCESS:
+        case constants.cashierSUCCESS:
             reState.data = action.response
+            console.log(reState.data)
             reState.lastFetched = action.lastFetched
             reState.loading = false
             break
-        case types.FAILURE:
+        case constants.cashierFAILURE:
             reState.error = action.error
             reState.loading = false
             break

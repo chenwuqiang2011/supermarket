@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux'
-import {Form,Input,Table,Button,Select,Pagination,MessageBox,message} from 'element-react';
+import {Form,Input,Table,Button,Select,Pagination,MessageBox,Message} from 'element-react';
 import SpinnerComponent from '../spinner/SpinnerComponent'
 import './Products.scss'
 import * as ProductsAction from './ProductsAction'
@@ -92,29 +92,34 @@ class ProductsComponent extends React.Component{
 	}
 
 
-	componentDidMount() {
+	componentDidMount() { 
+		
 		var _this = this.props;
         var _state = this;
 		$('table').on('click','.delete',function(){
+			var qty = _state.refs.pageNo.state.internalPageSize;
+			var current = _state.refs.pageNo.state.internalCurrentPage;
 			MessageBox.confirm('是否要删除此用户?', '提示', {
                 type: 'warning'
             }).then(() => {
                 //删除前端数据；
-                $(this).parents("tr").remove();
+                $(_state).parents("tr").remove();
                 //获取当前删除用户的信息，更新数据库；
                 var currentId = $(this).parents("tr").children().eq(0).text();
-                _this.removeProduct(currentId).then(function(res){
-                	console.log(666)
-                    /*if(res.res.data.status){
-
+                _this.removeProduct(current,qty,currentId).then(function(res){
+                	console.log('res',res)
+                    if(res.response.status){
                         //弹框提示；
                         Message({
                           type: 'success',
                           message: '删除成功!'
                         })
-                    }*/
+                    }
                 })
-            })
+            }).catch(() => {
+                Message({type: 'info',message: '已取消删除'});
+            });
+
 
 		})
 	}
@@ -146,6 +151,7 @@ class ProductsComponent extends React.Component{
 	    <div className="block">
         	<span className="demonstration"></span>
         	<Pagination 
+        	ref = "pageNo"
         	className="pageNum" 
         	onSizeChange={this.onChange.bind(this)} 
         	layout="total, sizes, prev, pager, next, jumper" 
@@ -164,7 +170,6 @@ class ProductsComponent extends React.Component{
 }
 
 const mapStateToProps = state => {
-
     return {
     	loading: state.products.loading,
     	data: state.products.data,

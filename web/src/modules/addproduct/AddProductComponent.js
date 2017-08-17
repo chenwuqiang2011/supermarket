@@ -47,12 +47,14 @@ class AddProductComponent extends React.Component{
 
   	add() {
   		this.props.addproduct(this.state.form).then(function(res){
+  			$("input").val("")
+  			Message({
+    		message: '恭喜你，商品信息已录入',
+    		type: 'success',
+  			});
 
 		});
-		Message({
-    		message: '恭喜你，商品信息已录入',
-    		type: 'success'
-  		});
+		
   	}
 
   	onChange(key, value) {
