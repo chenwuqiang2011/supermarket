@@ -62,7 +62,6 @@ class SupplierComponent extends React.Component{
 		}
 	}
 	componentWillMount(){
-		console.log(this)
 		this.props.supplier().then(function(res){
 		});
 		
