@@ -74,7 +74,11 @@ class AddAction extends React.Component {
     componentDidMount(){
         var _this = this.props;
         var _state = this;
-        
+
+         $(".content_left").on("click","li",function(){
+            console.log(888888888,_state);
+            alert(88888888888888)
+        })
         //事件监听；
         $("table").on("click",".delete",function(){
             MessageBox.confirm('是否要删除此用户?', '提示', {
@@ -89,15 +93,15 @@ class AddAction extends React.Component {
                 _this.deleteUser(currentId, pageNo).then(function(res){
                     console.log(res)
                     
-                    if(res.response.statu){alert(999)
+                    if(res.response.statu){
 
                         //弹框提示；
-                        Message({type: 'success', message: '删除成功!'});
+                        Message({duration: 2000, type: 'success', message: '删除成功!'});
                     }
                 });
   
             }).catch(() => {
-                Message({type: 'info',message: '已取消删除'});
+                Message({duration: 2000, type: 'info',message: '已取消删除'});
             });   
         }).on("click", ".edit", function(){
             var _id = $(this).parents("tr").children().eq(0).text();
@@ -134,18 +138,21 @@ class AddAction extends React.Component {
         console.log(name,password,access)
         if(!name){
             Message({
+                duration: 2000,
                 message: '用户名不能为空',
                 type: 'warning'
             });
             return;
         }else if(!password){
             Message({
+                duration: 2000,
                 message: '密码不能为空',
                 type: 'warning'
             });
             return;
         }else if(!access){
             Message({
+                duration: 2000,
                 message: '管理权限不能为空',
                 type: 'warning'
             });
@@ -162,13 +169,14 @@ class AddAction extends React.Component {
             //提示是否添加成功
             if(res){
                 Message({
+                    duration: 2000,
                     message: '恭喜你，用户添加成功！',
                     type: 'success'
                 });
                 //更新用户；
                 this.props.allUser()
             }else{
-                Message.error('对不起，用户已存在！')
+                Message({duration: 2000, message: '对不起，用户已存在！', type: 'error'})
             }
         });
     }
