@@ -69,8 +69,8 @@ class ShouyinComponent extends React.Component{
 				}else{
 					for(var i =0; i <this.state.data.length;i++){
 						if(this.state.data[i].barCode == this.props.data[0].barCode){
-							this.state.data[i].qty++;
-							return;
+							 var _qty = this.state.data[i].qty++;
+							return _qty;
 						}
 					}
 					aa = this.state.data.push(this.props.data[0]);
@@ -87,19 +87,19 @@ class ShouyinComponent extends React.Component{
 		
 	}
 	balance(){
-		var _data = "千锋隔壁超市收银系统\n*************************************\n";
+		var _data = "千锋隔壁超市收银系统\n*************************************\n"+'\n'+"商品名称: "+"    单价: "+"   数量: "+"  总价: "+'\n';
 		var total = 0;
 		var _date = new Date();
 		console.log(_date.getDate());
 		var res = this.state.data.map(function(item){
 			total += item.salesPrice*item.qty;
-			return  '\n'+"商品名称: "+"    单价: "+"    数量: "+"   总价: "+'\n'+item.name+'\n'+ item.barCode+"  "+item.salesPrice +"      "+item.qty+"      "+(item.salesPrice*item.qty).toFixed(2)+'\n'
+			return  item.name+'\n'+ item.barCode+" "+item.salesPrice +"      "+item.qty+"      "+(item.salesPrice*item.qty).toFixed(2)+'\n'
 			
 		}).join('');
-		_data += res + '\n'+'总价:'+total + '\n'+"*************************************\n"+'\n'+'收银员： '+'陈胖胖'+'\n'+'买单时间:'+_date.getFullYear()+'.'+_date.getMonth()+'.'+_date.getDate()+'  '+_date.getHours()+':'+_date.getMinutes()+':'+_date.getSeconds();
+		_data += res + '\n'+'总价:'+total + '\n'+"*************************************\n"+'\n'+'收银员： '+'陈胖胖'+'\n'+'买单时间:'+_date.getFullYear()+'.'+_date.getMonth()+'.'+_date.getDate()+'  '+_date.getHours()+':'+_date.getMinutes()+':'+_date.getSeconds()+ '\n'+ '\n';
 		console.log(_data)
 		$.post(
-			'http://10.3.134.78:81/print',
+			'http://10.3.134.71:81/print',
 			{text:_data},
 			function(res){
 				console.log(res);
@@ -190,7 +190,7 @@ class ShouyinComponent extends React.Component{
 	}
 }
 const mapStateToProps = (state) => {
-    console.log(333,state);
+    console.log(333,state.cashier.data);
     return {
         loading: state.cashier.loading,
     	data:state.cashier.data
