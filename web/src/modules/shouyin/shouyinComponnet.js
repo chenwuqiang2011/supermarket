@@ -49,19 +49,58 @@ class ShouyinComponent extends React.Component{
 		    data: []
 		}
 	}
+	discount(){
+		$('.discount').css({display:'block'});
+	}
+	delect(){
+		$('.discount').css({display:'none'});
+	}
+	sure(){
+		var _discount_rate = $('.discount_rate').html();
+		
+	}
+	judge(){
+		var _discount_rate = $('.discount_rate').html();
+	}
+	componentDidMount(){
+		var time = new Date();
+		var month = time.getMonth() + 1;
+		var day = time.getDate();
+		var hour = time.getHours();
+		var minutes = time.getMinutes();
+		var seconds= time.getSeconds(); 
+		$('.month').html(month);
+		$('.date').html(day);
+		$('.hours').html(hour);
+		$('.minutes').html(minutes);
+		$('.seconds').html(seconds);
+		setInterval(function(){
+			time = new Date();
+			month = time.getMonth()+1;
+			day = time.getDate();
+			hour = time.getHours();
+			minutes = time.getMinutes();
+			seconds = time.getSeconds();
+			$('.month').html(month);
+			$('.date').html(day);
+			$('.hours').html(hour);
+			$('.minutes').html(minutes);
+			$('.seconds').html(seconds);
+		},1000)
+	}
 	collect(event){
 		if(event.keyCode == 13){
 			var barCode = document.getElementById('barCode').value;
 			var aa;
 			var total = 0;
-			var _qty = 0;
-			var _money = $('.smoney');
-			var _number = $('.number');
+			var _qty = 1;
 			var res = this.state.data.map(function(item){
-				total += item.salesPrice*item.qty;
 				_qty += item.qty;
-				_money.html((total).toFixed(2));
-				_number.html(_qty);
+				total += item.salesPrice*_qty;
+				$('.smoney').html((total).toFixed(2));
+				$('.dismoney').html((total).toFixed(2));
+				$('.number').html(_qty);
+				
 			})
 			this.props.cashier(barCode).then(function(res){
 				if(this.state.data.length == 0){
@@ -69,8 +108,8 @@ class ShouyinComponent extends React.Component{
 				}else{
 					for(var i =0; i <this.state.data.length;i++){
 						if(this.state.data[i].barCode == this.props.data[0].barCode){
-							 var _qty = this.state.data[i].qty++;
-							return _qty;
+							this.state.data[i].qty++;
+							return;
 						}
 					}
 					aa = this.state.data.push(this.props.data[0]);
@@ -80,31 +119,36 @@ class ShouyinComponent extends React.Component{
 				})
 			}.bind(this));
 			if($('#barCode').val() != ''){
-				console.log(666);
 				$("#barCode").val('').focus();
 			}
 		}
 		
 	}
 	balance(){
-		var _data = "千锋隔壁超市收银系统\n*************************************\n"+'\n'+"商品名称: "+"    单价: "+"   数量: "+"  总价: "+'\n';
+		var _data = "千锋隔壁超市收银系统\n*************************************\n";
 		var total = 0;
 		var _date = new Date();
-		console.log(_date.getDate());
+		$('.change').attr('disabled',false).css({background:'#fff'});
+		
+		var _money=($('.money').val()-$('.dismoney').html()).toFixed(2);
+		$('.change').val(_money);
 		var res = this.state.data.map(function(item){
 			total += item.salesPrice*item.qty;
-			return  item.name+'\n'+ item.barCode+" "+item.salesPrice +"      "+item.qty+"      "+(item.salesPrice*item.qty).toFixed(2)+'\n'
+			return  '\n'+"商品名称: "+"    单价: "+"    数量: "+"   总价: "+'\n'+item.name+'\n'+ item.barCode+"  "+item.salesPrice +"      "+item.qty+"      "+(item.salesPrice*item.qty).toFixed(2)+'\n'
 			
 		}).join('');
-		_data += res + '\n'+'总价:'+total + '\n'+"*************************************\n"+'\n'+'收银员： '+'陈胖胖'+'\n'+'买单时间:'+_date.getFullYear()+'.'+_date.getMonth()+'.'+_date.getDate()+'  '+_date.getHours()+':'+_date.getMinutes()+':'+_date.getSeconds()+ '\n'+ '\n';
+		_data += res + '\n'+'总价:'+total + '\n'+"*************************************\n"+'\n'+'收银员： '+'陈胖胖'+'\n'+'买单时间:'+_date.getFullYear()+'.'+_date.getMonth()+'.'+_date.getDate()+'  '+_date.getHours()+':'+_date.getMinutes()+':'+_date.getSeconds();
 		console.log(_data)
-		$.post(
-			'http://10.3.134.71:81/print',
+		/*$.post(
+			'http://10.3.134.78:81/print',
 			{text:_data},
 			function(res){
 				console.log(res);
 			}
-		)
+		)*/
+		//自动清除表格
+		this.state.data = [];
+		console.log(this.state.data);
 	}
 	render(){
 		return(
@@ -150,25 +194,32 @@ class ShouyinComponent extends React.Component{
 					   				</div>
 					   				<div className="sthree">
 					   					<span>实收:</span>
-					   					<span>0.00</span>
-					   					<button>打折</button>
+					   					<span className="dismoney">0.00</span>
+					   					<button onClick={this.discount.bind(this)}>打折</button>
 					   				</div>
 					   			</div>
 			   				</div>
 			   				<div className="right">
 				   				<div>
-				   					<laber>交来:<input type="text" className="pay"/></laber>
+				   					<laber>交来:<input type="text" className="money"/></laber>
 				   					<laber>卡付:<input disabled type="text"/></laber>
 				   					<laber>其他:<input disabled type="text"/></laber>
-				   					<laber>找零:<input disabled type="text"/></laber>
+				   					<laber>找零:<input disabled type="text" className="change"/></laber>
 				   				</div>
 				   				<button onClick={this.balance.bind(this)}>结算打印</button>
 			   				</div>
 			   			</div>
 			   			<div className="inline-input">
-			   				<div>
-				   				<span>08</span><span>月</span><span>08</span><span>日</span>
-				   				<span>08</span><span>：</span><span>08</span>
+			   				<div className="time" >
+				   				<span className="month"></span>
+					   			<span>月</span>
+					   			<span className="date"></span>
+					   			<span>日</span>
+				   				<span className="hours"></span>
+			   					<span>：</span>
+			   					<span className="minutes"></span>
+			   					<span>：</span>
+			   					<span className="seconds"></span>
 			   				</div>
 			   				<div>
 			   					<span>收银员:</span><span>陈胖胖</span>
@@ -185,12 +236,21 @@ class ShouyinComponent extends React.Component{
 			   				</div>
 					    </div>
 			   		</div>
+			   		<div className="discount">
+			   			<p><span>折扣[整单]</span><span onClick={this.delect.bind(this)}>x</span></p>
+			   			<form>
+			   				<label>输入折扣率:<input type="text" className="discount_rate" onBlur={this.judge.bind(this)}/></label>
+			   				<label>折扣金额:&nbsp;&nbsp;&nbsp;<input type="text" className="discount_price"/></label>
+			   				<label>实收金额:&nbsp;&nbsp;&nbsp;<input type="text" className="paid-up"/></label>
+			   				<button onClick={this.sure.bind(this)}>确定</button>
+			   			</form>
+			   		</div>
 			   </div>
 		)
 	}
 }
 const mapStateToProps = (state) => {
-    console.log(333,state.cashier.data);
+    /*console.log(333,state);*/
     return {
         loading: state.cashier.loading,
     	data:state.cashier.data
