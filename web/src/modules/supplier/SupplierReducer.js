@@ -5,16 +5,18 @@
 
 import * as types from '../../utils/commonConstant'
 
-export default function(state = {loading: false}, action){
+export default function(state = {loading: false,data:[],total:1,pageNo:1}, action){
     let reState = JSON.parse(JSON.stringify(state))
     switch(action.type){
         case types.SUPPLIER_REQUEST:
             reState.loading = true
             break
         case types.SUPPLIER_SUCCESS:
-            reState.data = action.response
+            reState.data        = action.response.data
+            reState.total       = action.response.total
+            reState.pageNo      = action.response.page
             reState.lastFetched = action.lastFetched
-            reState.loading = false
+            reState.loading     = false
             break
         case types.SUPPLIER_FAILURE:
             reState.error = action.error

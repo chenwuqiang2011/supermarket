@@ -32,13 +32,12 @@ class LoginComponent extends React.Component {
             return;
         }else{
 
-            this.props.login(_username, _password).then(response=>{
-                console.log(this.props)
+            this.props.login(_username, _password, _access).then(response=>{
+                console.log("login", this.props)
                 // console.log(response.response,this.props.data);
                 var res = this.props.data.statu;
-                var username = this.props.data.data[0].name;
-                console.log(username)
                 if(res){
+                    var username = this.props.data.data[0].name;
                     Message({message: '恭喜你，登录成功！', duration: 2000, type: 'success',onClose: function(){
                          //跳转到主页；
                         // document.getElementById("username").value = "";

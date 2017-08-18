@@ -38,12 +38,12 @@ class PostComponent extends React.Component{
                          //跳转到主页；
                         // document.getElementById("username").value = "";
                         // document.getElementById("password").value = "";
-                        // hashHistory.push("add");
+                        hashHistory.push("/collectMoney");
                     	}
                     });
 
                 }else{
-                    Message.error('用户名或者密码错误！');
+                    Message.error('你没有登录权限！');
                     return;
                 }
             	

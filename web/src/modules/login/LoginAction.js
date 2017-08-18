@@ -1,17 +1,14 @@
 import * as constants from '../../utils/commonConstant'
 
-export function login(username, password){
+export function login(username, password, access){
 
     return {
         types: [constants.REQUEST, constants.SUCCESS, constants.FAILURE],
         path: 'login',
         method: 'post',
-        query: {username, password}
+        query: {username, password, access}
 
     }
-    // return {
-    // 	type: constants.REQUEST
-    // }
 }
 
 export function update_username(name){
