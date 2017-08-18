@@ -3,9 +3,10 @@
 //ajax 完成之后 => loading hided $.get('url', function(response){})  => {status: true, data: [{}]}
 // action => store = createStroe(reducer, 中间件) => reducer
 
-import * as types from '../../utils/commonConstant'
+import * as types from '../../utils/commonConstant';
+import {combineReducers} from 'redux';
 
-export default function(state = {loading: false,name: null,data:[]}, action){
+function user (state = {loading: false,name: null,data:[]}, action){
     let reState = JSON.parse(JSON.stringify(state));
 
         switch(action.type){
@@ -37,3 +38,30 @@ export default function(state = {loading: false,name: null,data:[]}, action){
         }
     return reState;
 }
+
+function update(state={loading: false, data:[]},action){
+    let reState = JSON.parse(JSON.stringify(state));
+    switch(action.types){
+        case types.UPDATE_REQUEST:
+                reState.loading = true
+                break
+            case types.UPDATE_SUCCESS:
+                reState.data = action.response.data;
+                console.log("UPDATE",action.response)
+                reState.lastFetched = action.lastFetched
+                reState.loading = false
+                break
+            case types.UPDATE_FAILURE:
+                reState.error = action.error
+                reState.loading = false
+                break 
+    }
+    return reState;
+}
+
+const userReducers = combineReducers({
+    user,
+    update
+});
+
+export default userReducers;

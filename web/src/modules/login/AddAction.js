@@ -15,7 +15,7 @@ export function addUser(name, password, access, _user){
 export function updateUser(id, name, password, access, _user){
 
     return {
-        types: [constants.ADD_REQUEST, constants.ADD_SUCCESS, constants.ADD_FAILURE],
+        types: [constants.UPDATE_REQUEST, constants.UPDATE_SUCCESS, constants.UPDATE_FAILURE],
         path: 'updateUser',
         name: 'add',
         method: 'post',
