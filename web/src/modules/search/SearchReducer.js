@@ -5,15 +5,14 @@
 
 import * as types from '../../utils/commonConstant'
 
-export default function(state = {loading: false}, action){ //console.log(action.response)
+export default function(state = {loading: false}, action){
     let reState = JSON.parse(JSON.stringify(state))
     switch(action.type){
         case types.SEARCHPRODUCT_REQUEST:
             reState.loading = true
             break
         case types.SEARCHPRODUCT_SUCCESS:
-            reState.data = action.response
-
+            reState.data = action.response.data
             reState.search = action.body
             reState.lastFetched = action.lastFetched
             reState.loading = false

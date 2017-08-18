@@ -86,17 +86,16 @@ class SearchComponent extends React.Component{
 	search() {
 		var search = document.querySelector('.search input').value;
 		this.props.searchProduct(search).then(function(res){
-			//console.log(res)
 		});
 	}
 
 	render() {
 
-		console.log(this.props)
+		console.log('111111',this.props)
 	  return (
 	  	<div>
 	  		<Form className="search">
-  				<Input placeholder="请输入条码/商品名" className="search" append={<Button type="primary" icon="search" onClick={this.search.bind(this)}>搜索</Button>} />
+  				<Input placeholder="请输入条码/商品名/类别" className="search" append={<Button type="primary" icon="search" onClick={this.search.bind(this)}>搜索</Button>} />
 	  		</Form>
 		    <Table
 		      style={{width: '100%'}}

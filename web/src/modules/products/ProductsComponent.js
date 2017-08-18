@@ -85,17 +85,16 @@ class ProductsComponent extends React.Component{
 		}
 	}
 
+	//组件挂载前触发
 	componentWillMount(){
 		this.props.products({qty:10}).then(function(res){
 			console.log(res)
-			alert(888)
 		});
 		
 	}
 
-
+	//组件挂载后触发
 	componentDidMount() { 
-		
 		var _this = this.props;
         var _state = this;
 		$('table').on('click','.delete',function(){
@@ -126,11 +125,14 @@ class ProductsComponent extends React.Component{
 		})
 	}
 
+	//改变多少条数据/页
 	onChange() {
 		var val = parseInt(document.querySelector('.pageNum .el-input__inner').value); 
   		this.props.products({qty:val}).then(function(res){
 		});
 	}
+	
+	//改变页码
 	CurrentChange(){
 		var val = parseInt(document.querySelector('.pageNum .el-input__inner').value); 
 		var current = document.querySelector('.pageNum li.active').innerText;
@@ -139,7 +141,6 @@ class ProductsComponent extends React.Component{
 	}
 
 	render() {
-
 	  return (
 	  	<div>
 	    <Table
@@ -157,7 +158,7 @@ class ProductsComponent extends React.Component{
         	className="pageNum" 
         	onSizeChange={this.onChange.bind(this)} 
         	layout="total, sizes, prev, pager, next, jumper" 
-        	total={3037} 
+        	total={this.props.total} 
         	pageSizes={[10, 15, 20, 50,100]} 
         	pageSize={10} 
         	currentPage={this.props.pageNo} 
@@ -176,6 +177,7 @@ const mapStateToProps = state => {
     	loading: state.products.loading,
     	data: state.products.data,
     	pageNo: state.products.pageNo,
+    	total:state.products.total
 
     }
 }
