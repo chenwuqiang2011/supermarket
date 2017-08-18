@@ -5,22 +5,22 @@
 
 import * as types from '../../utils/commonConstant'
 
-export default function(state = {loading: false,name: null,data:{data:[]}}, action){
+export default function(state = {loading: false,name: null,data:[]}, action){
     let reState = JSON.parse(JSON.stringify(state));
 
-    if(action.name == "add"){
-
         switch(action.type){
-            case types.REQUEST:
+            case types.ADD_REQUEST:
                 reState.loading = true
                 break
-            case types.SUCCESS:
-                reState.data = action.response[0]
-                
+            case types.ADD_SUCCESS:
+                reState.data = action.response.data;
+                reState.total = action.response.total;
+                reState.pageNo = action.response.pageNo;
+                console.log("ADD",action.response)
                 reState.lastFetched = action.lastFetched
                 reState.loading = false
                 break
-            case types.FAILURE:
+            case types.ADD_FAILURE:
                 reState.error = action.error
                 reState.loading = false
                 break 
@@ -34,13 +34,6 @@ export default function(state = {loading: false,name: null,data:{data:[]}}, acti
                 reState.user = action.response[0]
                 reState.loading = false
                 break
-            case "aa":
-                console.log(action.data)
-                reState.allUser = action.response[0]
-                reState.user = action.response[0]
-                reState.loading = false
-                break
         }
-    }
     return reState;
 }

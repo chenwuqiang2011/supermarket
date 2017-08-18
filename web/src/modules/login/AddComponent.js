@@ -67,7 +67,7 @@ class AddAction extends React.Component {
         //获取用户；
         this.props.allUser().then(response=>{
             console.log(response,this.props.data);
-            console.log(this.props)
+            console.log(this.props);alert(999)
         });
     }
 
@@ -232,14 +232,14 @@ class AddAction extends React.Component {
                        style={{width: '100%'}}
                        columns={this.state.columns}
                        height={550}
-                       data={this.props.data.data}
+                       data={this.props.data}
                     />
                      <Pagination layout="total, sizes, prev, pager, next, jumper" 
                         ref = "pageNo"
-                        total={this.props.data.total} 
+                        total={this.props.total} 
                         pageSizes={[10]} 
                         pageSize={10} 
-                        currentPage={this.props.data.pageNo}
+                        currentPage={this.props.pageNo}
                         onSizeChange = {this.onSizeChange.bind(this)}
                         onCurrentChange = {this.onCurrentChange.bind(this)}
                     />
@@ -272,9 +272,10 @@ class AddAction extends React.Component {
 
 const mapStateToProps = state => ({
     loading: state.add.loading,
-    allUser: state.add.allUser,
-    data:state.login.data,
-    name:state.add.name,
+    data:state.add.data,
+    total: state.add.total,
+    pageNo: state.add.pageNo,
+    name: state.add.name,
     store: state
 })
 export default connect(mapStateToProps, addActions)(AddAction)

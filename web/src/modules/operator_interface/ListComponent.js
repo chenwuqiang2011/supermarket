@@ -53,7 +53,7 @@ class ListComponent extends React.Component{
 		          </Menu.SubMenu>
 		          <Menu.SubMenu index="4" title={<span><i className="el-icon-information"></i>用户管理</span>}>
 		              <Menu.Item index="4-1"><i className="el-icon-caret-right "></i><span onClick = {this.addUser.bind(this)}>添加用户</span></Menu.Item>
-		              <Menu.Item index="4-2"><i className="el-icon-caret-right "></i>删除用户</Menu.Item>
+		              <Menu.Item index="4-2"><i className="fa fa-home fa-fw" aria-hidden="true"></i>删除用户</Menu.Item>
 		          </Menu.SubMenu>
 		          <Menu.SubMenu index="5" title={<span><i className="el-icon-information"></i>前台收银</span>}>
 		              <Menu.Item index="5-1"><i className="el-icon-caret-right "></i><sapn onClick = {this.shouyin.bind(this)}>打开收银台</sapn></Menu.Item>

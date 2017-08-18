@@ -9,9 +9,6 @@ export function login(username, password, access){
         query: {username, password, access}
 
     }
-    // return {
-    // 	type: constants.REQUEST
-    // }
 }
 
 export function update_username(name){

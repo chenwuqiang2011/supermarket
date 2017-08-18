@@ -37,6 +37,8 @@ module.exports = {
 					console.log("length")
 					if(callback && typeof callback == "function"){
 
+						//callback(aa);
+
 						callback({statu:true,message:"登录成功！",data:results});
 						sql.end();
 					}
