@@ -9,7 +9,7 @@ exports.register = function (app){
 	//用户登录
 	app.post("/login",urlencodedParser, function(request,response){
 
-		//请求数据库；
+		//请求数据库；sql.login();
 		sql.login("user", request.body, function(data){
 			//返回数据到页面；
 			response.send(data);

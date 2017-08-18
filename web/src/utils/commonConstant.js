@@ -2,6 +2,11 @@ export const REQUEST = "REQUEST"//before request => show up window || other
 export const SUCCESS = "SUCCESS"//request success => redirection || other
 export const FAILURE = "FAILURE"//request fail => show up dialog || other
 
+//login；
+export const ADD_REQUEST = "ADD_REQUEST"
+export const ADD_SUCCESS = "ADD_SUCCESS"
+export const ADD_FAILURE = "ADD_FAILURE"
+
 //前台收银；
 export const POST_REQUEST = "POST_REQUEST"
 export const POST_SUCCESS = "POST_SUCCESS"

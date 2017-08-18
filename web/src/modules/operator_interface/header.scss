@@ -17,21 +17,22 @@ body,html{
 			height:10%;
 			min-height: 80px;
 			width:100%;
-			box-sizing:border-box;
-			overflow:hidden;
+			min-width: 600px;
+			box-sizing: border-box;
+			overflow: hidden;
 			h1{
 				padding-top: 2%;
-				height:100%; 
+				height: 100%; 
 			}
 			img{
 				display: block;
-				height:100%;
-				margin-left:50px;
+				height: 100%;
+				margin-left: 50px;
 
 			}
 			.user{
 				line-height: 100%;
-				height:100%;
+				height: 100%;
 				margin-right:50px;
 				margin-top:15px;
 				font-size: 18px;
@@ -44,12 +45,25 @@ body,html{
 			}
 		}
 		.content{
-			height:89.6%;
+			height: 89%;
+			width: 100%;
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
-			.content_left{height:100%;width:15%;background:#ddd;border:1px solid #aaa;overflow-X:hidden;min-width:160px;}
-			.content_right{height:100%;flex:1;text-align: center;.el-pagination{margin-top:30px;}}
+			box-sizing: border-box;
+			.content_left{height:100%;width:15%;background:#ddd;border:1px solid #aaa;overflow-X:hidden;min-width:160px;.fa{margin-right: 10px; font-size: 16px;}}
+			.content_right{
+				height:100%;flex:1;text-align: center;
+				width: 100%;
+				.userList{
+					width: 70%;
+					overflow:auto;
+					.el-pagination{margin-top:30px;}
+				}
+				.add{
+					width: 30%;
+				}
+			}	
 		}
 	}
 }
