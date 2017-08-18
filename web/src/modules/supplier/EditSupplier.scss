@@ -1,0 +1,33 @@
+.edit-component{
+	//display: none;
+	position: absolute;
+    top: 20%;
+    right: 0;
+    bottom: 0;
+    left: 45%;
+    z-index: 100;
+    width: 30%;
+	.close{
+		background: #324057;
+		color: #FFFFFF;
+		text-align: center;
+		padding: 7px 0;
+		.btn:hover{
+			cursor: pointer;
+			background: #FF4949;
+		}
+	}
+	form{
+		margin-right: 10px;
+		border: 2px solid #ccc;
+		border-top: 0;
+		margin-right: 0;
+		padding: 20px 20px 10px 0 ;
+		background: #fff;
+	}
+	.btn{
+		display: flex;
+		justify-content: center;
+
+	}
+}
