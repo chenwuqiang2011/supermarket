@@ -6,7 +6,7 @@ import SpinnerComponent from '../spinner/SpinnerComponent';
 import './AddProduct.scss';
 import * as AddProductAction from './AddProductAction';
 
-import $ from './jquery3.1.1.js';
+import $ from '../../libs/jquery-3.2.1.min.js';
 
 class AddProductComponent extends React.Component{
 	constructor(props) {
@@ -68,30 +68,66 @@ class AddProductComponent extends React.Component{
 	  	<div className="addproduct">
 	  		<h1>商品信息录入</h1>
 	  		<Form>
-	  			<p><label><span>商品条码(必填):</span><Input onChange={this.onChange.bind(this,'barCode')} value={this.state.form.barCode}/></label></p>
-	  			<p><label><span>商品名称(必填):</span><Input onChange={this.onChange.bind(this,'goodsName')} value={this.state.form.goodsName}/></label></p>
-	  			<p><label><span>商品货号:</span><Input onChange={this.onChange.bind(this,'goodsId')} value={this.state.form.goodsId} /></label></p>
-	  			<p><label><span>商品类别:</span>
-	  			<Select
-	  			ref="select" 
-	  			value={this.state.value} 
-	  			className="select"
-	  			onChange={this.onChange.bind(this,'classify')}
-	  			clearable={true}>
-			    {
-			    	this.state.options.map(el => {
-			          return <Select.Option key={el.value} label={el.label} value={el.value} />
-			        })
-			    }
-    			</Select>
-    			</label></p>
-	  			<p><label><span>商品单位:</span><Input onChange={this.onChange.bind(this,'unit')} value={this.state.form.unit}/></label></p>
-	  			<p><label><span>零售价(必填):</span><Input onChange={this.onChange.bind(this,'salePrice')} value={this.state.form.salePrice}/></label></p>
-	  			<p><label><span>进货价:</span><Input onChange={this.onChange.bind(this,'purchasingCost')} value={this.state.form.purchasingCost} /></label></p>
-	  			<p><label><span>规格:</span><Input onChange={this.onChange.bind(this,'specification')} value={this.state.form.specification} /></label></p>
-	  			<p><label><span>供应商Id:</span><Input onChange={this.onChange.bind(this,'supplierId')} value={this.state.form.supplierId} /></label></p>
-	  			<p><Button className="add" onClick={this.add.bind(this)}>确认</Button></p>
+	  			<Form.Item label="商品条码(必填)：" required>
+		  			<Input 
+		  			onChange={this.onChange.bind(this,'barCode')} 
+		  			value={this.state.form.barCode}/>
+	  			</Form.Item>
+	  			<Form.Item label="商品名称(必填)：" required>
+		  			<Input 
+		  			onChange={this.onChange.bind(this,'goodsName')} 
+		  			value={this.state.form.goodsName}/>
+	  			</Form.Item>
+	  			<Form.Item label="商品货号：">  
+		  			<Input 
+		  			onChange={this.onChange.bind(this,'goodsId')} 
+		  			value={this.state.form.goodsId} />
+	  			</Form.Item>
+	  			<Form.Item label="商品类别：">
+		  			<Select
+		  			ref="select" 
+		  			value={this.state.value} 
+		  			className="select"
+		  			onChange={this.onChange.bind(this,'classify')}
+		  			clearable={true}>
+				    {
+				    	this.state.options.map(el => {
+				          return <Select.Option key={el.value} label={el.label} value={el.value} />
+				        })
+				    }
+	    			</Select>
+    			</Form.Item>
+	  			<Form.Item label="单位：">
+		  			<Input 
+		  			onChange={this.onChange.bind(this,'unit')} 
+		  			value={this.state.form.unit}/>
+	  			</Form.Item>
+	  			<Form.Item label="零售价：" required>
+		  			<Input 
+		  			onChange={this.onChange.bind(this,'salePrice')} 
+		  			value={this.state.form.salePrice}/>
+		  		</Form.Item>
+	  			<Form.Item label="进货价：">
+		  			<Input 
+		  			onChange={this.onChange.bind(this,'purchasingCost')} 
+		  			value={this.state.form.purchasingCost} />
+	  			</Form.Item>
+	  			<Form.Item label="规格：">
+		  			<Input 
+		  			onChange={this.onChange.bind(this,'specification')} 
+		  			value={this.state.form.specification} />
+	  			</Form.Item>
+	  			<Form.Item label="供应商Id">
+		  			<Input 
+		  			onChange={this.onChange.bind(this,'supplierId')} 
+		  			value={this.state.form.supplierId} />
+		  		</Form.Item>
+	  			<p><Button type="primary" 
+		  			className="add" 
+		  			onClick={this.add.bind(this)}>确认录入
+		  		</Button></p>
 	  		</Form>
+	  		<SpinnerComponent show={this.props.loading}/>
 	  	</div>
 	  )
 	}

@@ -5,7 +5,7 @@ import {Form,Input,Table,Button,Select,Pagination,MessageBox,Message} from 'elem
 import SpinnerComponent from '../spinner/SpinnerComponent'
 import './Products.scss'
 import * as ProductsAction from './ProductsAction'
-import $ from '../addproduct/jquery3.1.1.js'
+import $ from '../../libs/jquery-3.2.1.min.js'
 
 
 class ProductsComponent extends React.Component{

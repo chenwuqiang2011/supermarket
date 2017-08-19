@@ -5,29 +5,20 @@
 
 import * as types from '../../utils/commonConstant'
 
-export default function(state = {loading: false,name:null,logout:"登录",data:{data:[]}}, action){
+export default function(state = {loading: false,data:[]}, action){ 
     let reState = JSON.parse(JSON.stringify(state))
     switch(action.type){
-        case types.REQUEST:
+        case types.ADDSUPPLIER_REQUEST:
             reState.loading = true
             break
-        case types.SUCCESS:
-
+        case types.ADDSUPPLIER_SUCCESS:
             reState.data = action.response
             reState.lastFetched = action.lastFetched
             reState.loading = false
             break
-        case types.FAILURE:
+        case types.ADDSUPPLIER_FAILURE:
             reState.error = action.error
             reState.loading = false
-            break
-        case 'username':
-            reState.name = action.data
-            reState.logout = "退出"
-            break
-        case 'signout':
-            reState.name = null
-            reState.logout = "登录"
             break
     }
     return reState;

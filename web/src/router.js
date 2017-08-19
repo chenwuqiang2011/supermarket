@@ -11,6 +11,7 @@ import AddProductComponent from './modules/addproduct/AddProductComponent';
 import SearchComponent from './modules/search/SearchComponent';
 import CollectMoney from './modules/shouyin/shouyinComponnet';
 import pucharseComponent from './modules/purcharse/pucharseComponent';
+import addSupplierComponent from './modules/addsupplier/AddSupplierComponent'
 
 function loginFilter(){
 	
@@ -31,6 +32,7 @@ export default [
     	<Route path="addproduct" component={AddProductComponent}  onEnter={loginFilter}/>
         <Route path="searchProduct" component={SearchComponent}  onEnter={loginFilter}/>
     	<Route path="post_login" component={PostComponent}  onEnter={loginFilter}/>
+        <Route path="addSupplier" component={addSupplierComponent}  onEnter={loginFilter}/>
     </Route>,
 	<Route path="collectMoney" component={CollectMoney} />
 ]

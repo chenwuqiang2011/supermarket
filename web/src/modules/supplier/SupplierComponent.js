@@ -87,7 +87,7 @@ class SupplierComponent extends React.Component{
                 $(_state).parents("tr").remove();
                 //获取当前删除用户的信息，更新数据库；
                 var currentId = $(this).parents("tr").children().eq(0).text();
-                _this.removeProduct(current,qty,currentId).then(function(res){
+                _this.deletesupplier(current,qty,currentId).then(function(res){
                 	console.log('res',res)
                     if(res.response.status){
                         //弹框提示；
@@ -103,6 +103,9 @@ class SupplierComponent extends React.Component{
 		}).on('click','.edit',function() {
 			let index = $(this).closest('tr').index();
 			_state.edit(index)
+		});
+		$('.addBtn').on('click',function() {
+			console.log(666)
 		})
 
 	}
@@ -146,6 +149,7 @@ class SupplierComponent extends React.Component{
 	  	<Form>
 	  		<Form.Item>
   			<Input placeholder="请输入供应商Id/供应商名称" className="search" append={<Button onClick={this.search.bind(this)} type="primary" icon="search">搜索</Button>} />
+  			<Button type="primary" className="addBtn">新增</Button>
   			</Form.Item>
 	  	</Form>
 	    <Table

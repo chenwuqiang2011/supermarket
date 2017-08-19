@@ -41,7 +41,6 @@ class EditComponent extends React.Component {
             }
             alldata.splice(editIdx, 1, data)*/
         
-            console.log('page',this.props.state)
             var pageNo = this.props.state.supplier.pageNo;
            
             this.props.update({table:'supplier',editData:data, page: pageNo}).then(()=>{
@@ -55,24 +54,6 @@ class EditComponent extends React.Component {
                 
     }
     
-    //拖拽
-    beforeDarg(){
-        var event = window.event
-        var box = document.getElementsByClassName('edit-component')[0];
-        var oWidth = event.clientX - box.offsetLeft;
-        var oHeight = event.clientY - box.offsetTop;
-        document.onMouseMove = function(evt){
-            /*var evt = window.event
-            var _left = evt.clientX - oWidth
-            var _top = evt.clientY - oHeight
-            console.log(666)
-            box.style.left = _left + 'px';
-            box.style.top = _top + 'px';
-            console.log(666)*/
-        } 
-
-    }
-
     render(){
         if(!this.props.status){
             return null
@@ -81,7 +62,7 @@ class EditComponent extends React.Component {
             <div className="edit-component" ref="child" >
                 <div className="close">
                     <Layout.Row>
-                        <Layout.Col span="6" offset="9"><div className="grid-content" onMouseDown={this.beforeDarg.bind(this)}>供应商编辑</div></Layout.Col>
+                        <Layout.Col span="6" offset="9"><div className="grid-content">供应商编辑</div></Layout.Col>
                         <Layout.Col span="2" offset="7"><div className="grid-content btn" onClick={this.editBox.bind(this, {type: 'close', status: false})}>&times;</div></Layout.Col>
                     </Layout.Row>
                 </div>

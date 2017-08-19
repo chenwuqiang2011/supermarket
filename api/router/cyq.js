@@ -52,6 +52,12 @@ exports.register = function (app) {
     app.post('/updateSupplier',urlencodedParser,function(req,res) {
         sql.update('supplier',req.body,function(data) {
             res.send(data);
+        });
+    });
+    //新增供应商api
+    app.post('/addSupplier',urlencodedParser,function(req,res) {
+        sql.add('supplier',req.body,function(data) {
+            res.send(data)
         })
     })
 }

@@ -10,21 +10,31 @@ class ListComponent extends React.Component{
 	onClose() {
 
 	}
+
 	products() {
 		hashHistory.push("/products");	
 	}
+
 	addProducts() {
 		hashHistory.push("/addproduct");
 	}
+
 	search() {
 		hashHistory.push('/searchProduct');
 	}
-	addSupplier() {
+
+	searchSupplier() {
 		hashHistory.push('/suppliers');
 	}
+
+	addSupplier() {
+		hashHistory.push('/addSupplier');
+	}
+
 	addUser(){
 		hashHistory.push("/add");
 	}
+
 	purcharse(){
 		hashHistory.push("/purcharse");
 	}
@@ -44,8 +54,8 @@ class ListComponent extends React.Component{
 
 		          </Menu.SubMenu>
 		          <Menu.SubMenu index="2" title={<span><i className="el-icon-information"></i>供应商管理</span>}>
-		              <Menu.Item index="2-1"><i className="el-icon-caret-right "></i><span>供应商录入</span></Menu.Item>
-		              <Menu.Item index="2-3"><i className="el-icon-caret-right "></i><span onClick={this.addSupplier.bind(this)} >供应商查询</span></Menu.Item>
+		              <Menu.Item index="2-1"><i className="el-icon-caret-right "></i><span onClick={this.addSupplier.bind(this)} >供应商录入</span></Menu.Item>
+		              <Menu.Item index="2-3"><i className="el-icon-caret-right "></i><span onClick={this.searchSupplier.bind(this)} >供应商查询</span></Menu.Item>
 		          </Menu.SubMenu>
 		          <Menu.SubMenu index="3" title={<span><i className="el-icon-information"></i>出入库管理</span>}>
 		              <Menu.Item index="3-1"><i className="el-icon-caret-right "></i><span onClick = {this.purcharse.bind(this)}>商品入库</span></Menu.Item>

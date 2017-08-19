@@ -55,10 +55,10 @@ module.exports = {
 
 		conn.query(sql,function(err,res){
 			if(!err){
-				callback({status:true,message:'查询成功',data:res,total:total,page:1});
+				callback({status:true,message:'查询成功',data:res,total:total,page:data.page});
 			}else{
 				console.log(err)
-				callback({status:false,message:'查询失败',data:null,total:null});
+				callback({status:false,message:'查询失败',data:null,total:null,page:null});
 			}
 			
 		})
@@ -66,6 +66,7 @@ module.exports = {
 
 	//模糊查询商品名
 	getSearchProducts:function(table,data,callback){
+		console.log('查询商品data',data)
 		/*var sql = "select * from products where goodsName like  '%" + data + "%' or barCode like '%" + data + "%' ";*/
 		var sql = "SELECT a.*, b.supplierName FROM products a INNER JOIN supplier b on a.supplierId = b.supplierId WHERE CONCAT(goodsName, barCode, classify, b.supplierName) LIKE  '%"+data+"%' ";
 		conn.query(sql,function(err,res){
@@ -81,7 +82,7 @@ module.exports = {
 
 	//模糊查询供应商
 	SearchSuppliers:function(table,data,callback){
-		console.log(data.key)
+		console.log('查询供应商data',data)
 		var sql = "select * from supplier where concat(supplierId,supplierName) like '%" + data.key + "%' ";
 		conn.query(sql,function(err,res){
 			if(!err){
@@ -95,6 +96,7 @@ module.exports = {
 
 	//删除商品
 	deleteProduct:function(table,data,callback){
+		console.log('删除商品data',data)
 		//所有数据数量
 		var total = 0;
 		var _condition = "select * from products";
@@ -131,6 +133,7 @@ module.exports = {
 
 	//删除供应商
 	deleteSupplier:function(table,data,callback) {
+		console.log('删除供应商data',data)
 		//所有数据数量
 		var total = 0;
 		var _condition = "select * from supplier";
@@ -167,6 +170,7 @@ module.exports = {
 
 	//增加商品
 	addProduct:function(table,data,callback){
+		console.log('新增商品data',data)
 		var sql = 'INSERT INTO products(goodsId,barCode,classify,goodsName,purchasingCost,salePrice,specification,unit,supplierId)VALUES(0,?,?,?,?,?,?,?,?)';
 
 		var sqlparam = [
@@ -179,7 +183,7 @@ module.exports = {
 			data.unit,
 			data.supplierId,
 		];
-		console.log(sqlparam)
+		console.log('sqlparam',sqlparam)
 		conn.query(sql,sqlparam,function(err,res){
 			if(!err){
 				callback({status:true,message:'添加成功',date:res})
@@ -192,7 +196,7 @@ module.exports = {
 
 	//更新供应商、商品
 	update:function(table,data,callback) {
-		console.log(data)
+		console.log('更新data',data)
 		var editData = data.editData
 		//所有数据数量
 		var total = 0;
@@ -235,15 +239,12 @@ module.exports = {
 		/*var sql2 = `select * from ${data.table} limit ${page} * ${qty},${qty}` 错误*/
 		var sql2 = `select * from ${data.table} limit ${page * qty},${qty}`
 		conn.query(sql,function(err,res) {
-			console.log("1",res)
 			if(!err){
 				conn.query(sql2,function(err,res) {
-			console.log("2",res)
-
 					if(!err){
-						callback({status:true,message:'更新成功',data:res,total:total})
+						callback({status:true,message:'更新成功',data:res,total:total,page:data.page})
 					}else{
-						callback({status:false,message:'更新失败',data:null,total:null})
+						callback({status:false,message:'更新失败',data:null,total:null,page:null})
 					}
 					
 				})
@@ -252,5 +253,41 @@ module.exports = {
 			}
 		});
 	},
+
+	//新增供应商、商品
+	add:function(table,data,callback) {
+		console.log('新增data',data)
+		if(table == 'products') {
+			var sql = 'INSERT INTO products(goodsId,barCode,classify,goodsName,purchasingCost,salePrice,specification,unit,supplierId)VALUES(0,?,?,?,?,?,?,?,?)';
+			var sqlparam = [
+				data.barCode,
+				data.classify,
+				data.goodsName,
+				data.purchasingCost,
+				data.salePrice,
+				data.specification,
+				data.unit,
+				data.supplierId,
+			];
+		}
+		if(table == 'supplier') {
+			var sql = 'INSERT INTO supplier(supplierId,supplierName,phone,linkman,address)VALUES(?,?,?,?,?)';
+			var sqlparam = [
+				data.supplierId,
+				data.supplierName,
+				data.phone,
+				data.linkman,
+				data.address
+			];
+		}
+		conn.query(sql,sqlparam,function(err,res) {
+			if(!err) {
+				callback({status:true,message:'添加成功',data:res});
+			}else{
+				console.log(err)
+				callback({status:false,message:'添加失败',data:null});
+			}
+		})
+	}
 }
 
