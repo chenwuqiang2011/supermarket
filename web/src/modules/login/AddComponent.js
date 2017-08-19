@@ -67,7 +67,7 @@ class AddAction extends React.Component {
         //获取用户；
         this.props.allUser().then(response=>{
             console.log(response,this.props.data);
-            console.log(this.props);alert(999)
+            console.log(this.props);
         });
     }
 
@@ -156,12 +156,12 @@ class AddAction extends React.Component {
         }
 
         //将所有用户重新发送到后端数据库；
-        var _user = JSON.stringify(this.props.data.data);
+        var _user = JSON.stringify(this.props.data);
         console.log(999999,_user)
 
         this.props.addUser(name, password, access, _user).then(response=>{
             console.log(response,this.props.data)
-            var res = this.props.data.statu;
+            var res = response.response.statu;
             //提示是否添加成功
             if(res){
                 Message({
@@ -204,18 +204,20 @@ class AddAction extends React.Component {
         }
 
         //将所有用户重新发送到后端数据库；
-        var _user = JSON.stringify(this.props.data.data);
-        console.log(999999,_user)
+        var _user = JSON.stringify(this.props.data);
+        console.log("_user",_user)
 
         this.props.updateUser(id, name, password, access, _user).then(response=>{
-            console.log(response,this.props.data)
-            var res = this.props.data.statu;
+            console.log("res", response,this.props.data)
+            var res = response.response.statu;
             //提示是否添加成功
             if(res){
                 Message({
                     message: '恭喜你，用户修改成功！',
                     type: 'success'
                 });
+                //清空input输入框的值；
+                console.log(this.refs.modify)
                 //更新用户；
                 this.props.allUser()
             }else{
@@ -231,7 +233,7 @@ class AddAction extends React.Component {
                     <Table
                        style={{width: '100%'}}
                        columns={this.state.columns}
-                       height={550}
+                       minHeight={560}
                        data={this.props.data}
                     />
                      <Pagination layout="total, sizes, prev, pager, next, jumper" 
@@ -245,7 +247,7 @@ class AddAction extends React.Component {
                     />
                 </div>
                 <div className = "add">
-                    <Form  labelWidth="100" model={this.state.form} className="demo-form-stacked">
+                    <Form ref = "modify" labelWidth="100" model={this.state.form} className="demo-form-stacked">
                         <Form.Item label="用户名">
                             <Input className = "name" value = {this.state.form.name} onChange={this.onChange.bind(this, 'name')}></Input>
                         </Form.Item>
@@ -271,11 +273,11 @@ class AddAction extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    loading: state.add.loading,
-    data:state.add.data,
-    total: state.add.total,
-    pageNo: state.add.pageNo,
-    name: state.add.name,
+    loading: state.add.user.loading,
+    data:state.add.user.data,
+    total: state.add.user.total,
+    pageNo: state.add.user.pageNo,
+    name: state.add.user.name,
     store: state
 })
 export default connect(mapStateToProps, addActions)(AddAction)

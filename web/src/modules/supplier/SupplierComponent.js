@@ -149,7 +149,6 @@ class SupplierComponent extends React.Component{
 	  	<Form>
 	  		<Form.Item>
   			<Input placeholder="请输入供应商Id/供应商名称" className="search" append={<Button onClick={this.search.bind(this)} type="primary" icon="search">搜索</Button>} />
-  			<Button type="primary" className="addBtn">新增</Button>
   			</Form.Item>
 	  	</Form>
 	    <Table

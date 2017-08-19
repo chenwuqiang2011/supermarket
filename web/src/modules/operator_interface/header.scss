@@ -7,6 +7,7 @@ body,html{
 	height:100%;
 	.parent{
 		height:100%;
+		overflow: hidden;
 		.header{
 			background:$bgcolor;
 			padding:10px 0;
@@ -45,7 +46,8 @@ body,html{
 			}
 		}
 		.content{
-			height: 89%;
+			height: 90%;
+			overflow: hidden;
 			width: 100%;
 			display: flex;
 			flex-direction: row;

@@ -54,6 +54,7 @@ class EditComponent extends React.Component {
                 
     }
     
+
     render(){
         if(!this.props.status){
             return null
