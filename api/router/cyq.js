@@ -48,6 +48,12 @@ exports.register = function (app) {
     		res.send(data);
     	});
     });
+    //更新商品api
+    app.post('/updateProduct',urlencodedParser,function(req,res) {
+        sql.update('products',req.body,function(data) {
+            res.send(data)
+        })
+    })
     //更新供应商api
     app.post('/updateSupplier',urlencodedParser,function(req,res) {
         sql.update('supplier',req.body,function(data) {
@@ -58,6 +64,7 @@ exports.register = function (app) {
     app.post('/addSupplier',urlencodedParser,function(req,res) {
         sql.add('supplier',req.body,function(data) {
             res.send(data)
-        })
-    })
+        });
+    });
+
 }

@@ -5,6 +5,7 @@ import {Form,Input,Table,Button,Select,Pagination,MessageBox,Message} from 'elem
 import SpinnerComponent from '../spinner/SpinnerComponent'
 import './Products.scss'
 import * as ProductsAction from './ProductsAction'
+import EditProductsComponent from './EditProdutsComponent'
 import $ from '../../libs/jquery-3.2.1.min.js'
 
 
@@ -97,10 +98,10 @@ class ProductsComponent extends React.Component{
 	componentDidMount() { 
 		var _this = this.props;
         var _state = this;
-		$('table').on('click','.delete',function(){
+		$('table').on('click','.delete',function() {
 			var qty = _state.refs.pageNo.state.internalPageSize;
 			var current = _state.refs.pageNo.state.internalCurrentPage;
-			MessageBox.confirm('是否要删除此用户?', '提示', {
+			MessageBox.confirm('是否要删除此商品?', '提示', {
                 type: 'warning'
             }).then(() => {
                 //删除前端数据；
@@ -120,9 +121,18 @@ class ProductsComponent extends React.Component{
             }).catch(() => {
                 Message({type: 'info',message: '已取消删除'});
             });
-
-
+		}).on('click','.edit',function() {
+			let index = $(this).closest('tr').index();
+			_state.edit(index)
 		})
+	}
+
+	edit(idx) {
+		let data = this.props.data[idx];
+		console.log(data)
+        //要修改商品的条码
+        let editgoodsId = data.goodsId;
+        this.props.editBox({type: 'open',status: true, editData: data})
 	}
 
 	//改变多少条数据/页
@@ -148,7 +158,7 @@ class ProductsComponent extends React.Component{
 	      columns={this.state.columns}
 	      data={this.props.data}
 	      border={true}
-	      height={530}
+	      height={532}
 	    />
 	    <SpinnerComponent show={this.props.loading}/>
 	    <div className="block">
@@ -165,7 +175,7 @@ class ProductsComponent extends React.Component{
         	onCurrentChange={this.CurrentChange.bind(this)} 
         	/>
       	</div>
-
+      	<EditProductsComponent alldata={this.props.data}/>
 	    </div>
 	  )
 	}    
@@ -177,7 +187,9 @@ const mapStateToProps = state => {
     	loading: state.products.loading,
     	data: state.products.data,
     	pageNo: state.products.pageNo,
-    	total:state.products.total
+    	total:state.products.total,
+    	qty:state.products.qty
+
 
     }
 }

@@ -1,13 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Message, Table, Button, Select, Input, MessageBox, Form, Layout} from 'element-react'
-
-import './EditSupplier.scss'
+import './EditProducts.scss'
 import SpinnerComponent from '../spinner/SpinnerComponent'
-import * as SupplierActions from './SupplierAction'
+import * as ProductsAction from './ProductsAction'
 
 
-class EditComponent extends React.Component {
+class EditProductsComponent extends React.Component {
     constructor(props){
         super(props)
         this.state = {
@@ -27,7 +26,7 @@ class EditComponent extends React.Component {
     }
     
     save(){
-        MessageBox.confirm('此操作将永久修改该供应商信息, 是否继续?', '提示', {type: 'warning'}).then(() => {
+        MessageBox.confirm('此操作将永久修改该商品信息, 是否继续?', '提示', {type: 'warning'}).then(() => {
             // Message({ type: 'success', message: '修改成功!'});
 
             let data = this.props.editData;
@@ -41,9 +40,10 @@ class EditComponent extends React.Component {
             }
             alldata.splice(editIdx, 1, data)*/
         
-            var pageNo = this.props.state.supplier.pageNo;
+            var pageNo = this.props.state.products.pageNo;
+            var qty    = this.props.state.products.qty
            
-            this.props.update({table:'supplier',editData:data, page: pageNo}).then(()=>{
+            this.props.update({table:'products',editData:data, page: pageNo,qty:qty}).then(()=>{
                 Message({ type: 'success', message: '修改成功!'});
             });
         }).catch(() => {
@@ -62,25 +62,37 @@ class EditComponent extends React.Component {
             <div className="edit-component" ref="child" >
                 <div className="close">
                     <Layout.Row>
-                        <Layout.Col span="6" offset="9"><div className="grid-content">供应商编辑</div></Layout.Col>
+                        <Layout.Col span="6" offset="9"><div className="grid-content">商品信息编辑</div></Layout.Col>
                         <Layout.Col span="2" offset="7"><div className="grid-content btn" onClick={this.editBox.bind(this, {type: 'close', status: false})}>&times;</div></Layout.Col>
                     </Layout.Row>
                 </div>
                 <Form labelPosition={this.props.labelPosition} labelWidth="100" model={this.state.form} className="demo-form-stacked">
+                    <Form.Item label="货号：">
+                      <Input disabled value={this.props.editData.goodsId} onChange={(this.onChange).bind(this, 'goodsId')}></Input>
+                    </Form.Item>
+                    <Form.Item label="商品条码：">
+                      <Input value={this.props.editData.barCode} onChange={(this.onChange).bind(this, 'barCode')}></Input>
+                    </Form.Item>
+                    <Form.Item label="商品名称：">
+                      <Input value={this.props.editData.goodsName} onChange={(this.onChange).bind(this, 'goodsName')}></Input>
+                    </Form.Item>
+                    <Form.Item label="规格：">
+                      <Input value={this.props.editData.specification} onChange={(this.onChange).bind(this, 'specification')}></Input>
+                    </Form.Item>
+                    <Form.Item label="单位：">
+                      <Input value={this.props.editData.unit} onChange={(this.onChange).bind(this, 'unit')}></Input>
+                    </Form.Item>
+                    <Form.Item label="进货价：">
+                      <Input value={this.props.editData.purchasingCost} onChange={(this.onChange).bind(this, 'purchasingCost')}></Input>
+                    </Form.Item>
+                    <Form.Item label="售货价：">
+                      <Input value={this.props.editData.salePrice} onChange={(this.onChange).bind(this, 'salePrice')}></Input>
+                    </Form.Item>
+                    <Form.Item label="类别：">
+                      <Input value={this.props.editData.classify} onChange={(this.onChange).bind(this, 'classify')}></Input>
+                    </Form.Item>
                     <Form.Item label="供应商Id：">
-                      <Input disabled value={this.props.editData.supplierId} onChange={(this.onChange).bind(this, 'supplierId')}></Input>
-                    </Form.Item>
-                    <Form.Item label="供应商名称：">
-                      <Input value={this.props.editData.supplierName} onChange={(this.onChange).bind(this, 'supplierName')}></Input>
-                    </Form.Item>
-                    <Form.Item label="联系方式：">
-                      <Input value={this.props.editData.phone} onChange={(this.onChange).bind(this, 'phone')}></Input>
-                    </Form.Item>
-                    <Form.Item label="联系人：">
-                      <Input value={this.props.editData.linkman} onChange={(this.onChange).bind(this, 'linkman')}></Input>
-                    </Form.Item>
-                    <Form.Item label="地址：">
-                      <Input value={this.props.editData.address} onChange={(this.onChange).bind(this, 'address')}></Input>
+                      <Input value={this.props.editData.supplierId} onChange={(this.onChange).bind(this, 'supplierId')}></Input>
                     </Form.Item>
                     <div className="btn">
                         <Button type="success" size="small" onClick={this.save.bind(this)}>保存</Button>
@@ -101,4 +113,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, SupplierActions)(EditComponent)
+export default connect(mapStateToProps, ProductsAction)(EditProductsComponent)

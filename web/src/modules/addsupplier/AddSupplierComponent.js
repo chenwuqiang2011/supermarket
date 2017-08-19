@@ -25,15 +25,24 @@ class AddSupplierComponent extends React.Component{
 	}
 
   	add() {
-  		this.props.addSupplier(this.state.form).then(function(res){
-  			$("input").val("")
+  		let data = this.state.form;
+  		if(data.supplierId == '' || data.supplierName == ''){
   			Message({
-    		message: '恭喜你，商品信息已录入',
-    		type: 'success',
-  			});
+	    		message: '请输入必填项',
+	    		type: 'warning',
+	  			});
 
-		});
-		
+  			return false;
+  		}else{
+	  		this.props.addSupplier(this.state.form).then(function(res){
+	  			$("input").val("")
+	  			Message({
+	    		message: '恭喜你，供应商信息已录入',
+	    		type: 'success',
+	  			});
+
+			});
+		}
   	}
 
   	onChange(key, value) {

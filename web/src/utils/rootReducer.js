@@ -11,6 +11,7 @@ import cashier from '../modules/shouyin/shouyinReducer'
 import addproduct from '../modules/addproduct/AddProductReducer'
 import EditSupplier from '../modules/supplier/EditSupplierReducer'
 import addSupplier from '../modules/addsupplier/AddSupplierReducer'
+import EditProduct from '../modules/products/EditProductsReducer'
 
 
 const rootReducer = combineReducers({
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
     addproduct,
     post,
     EditSupplier,
-    addSupplier
+    addSupplier,
+    EditProduct
 })
 
 export default rootReducer

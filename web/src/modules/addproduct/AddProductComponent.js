@@ -41,19 +41,34 @@ class AddProductComponent extends React.Component{
 	    	specification:'',
 	    	supplier:'',
 
+	    },
+	    rules: {
+	    	barCode:[
+	    		{required:true,message:'请输入商品条码',trigger:'blur'}
+	    	]
 	    }
-	  };
+	  }
 	}
 
   	add() {
-  		this.props.addproduct(this.state.form).then(function(res){
-  			$("input").val("")
+  		let data = this.state.form;
+  		if(data.barCode == '' || data.goodsName == '' || data.salePrice == ''){
   			Message({
-    		message: '恭喜你，商品信息已录入',
-    		type: 'success',
-  			});
+	    		message: '请输入必填项',
+	    		type: 'warning',
+	  			});
 
-		});
+  			return false;
+  		}else{
+  			this.props.addproduct(data).then(function(res){
+	  			$("input").val("")	//清空记录
+	  			Message({
+	    		message: '恭喜你，商品信息已录入',
+	    		type: 'success',
+	  			});
+			});
+  		}
+  		
 		
   	}
 
@@ -68,12 +83,12 @@ class AddProductComponent extends React.Component{
 	  	<div className="addproduct">
 	  		<h1>商品信息录入</h1>
 	  		<Form>
-	  			<Form.Item label="商品条码(必填)：" required>
+	  			<Form.Item label="商品条码(必填)：" required={true} props="barCode">
 		  			<Input 
 		  			onChange={this.onChange.bind(this,'barCode')} 
 		  			value={this.state.form.barCode}/>
 	  			</Form.Item>
-	  			<Form.Item label="商品名称(必填)：" required>
+	  			<Form.Item label="商品名称(必填)：" required={true}>
 		  			<Input 
 		  			onChange={this.onChange.bind(this,'goodsName')} 
 		  			value={this.state.form.goodsName}/>
@@ -102,7 +117,7 @@ class AddProductComponent extends React.Component{
 		  			onChange={this.onChange.bind(this,'unit')} 
 		  			value={this.state.form.unit}/>
 	  			</Form.Item>
-	  			<Form.Item label="零售价：" required>
+	  			<Form.Item label="零售价(必填)：" required={true}>
 		  			<Input 
 		  			onChange={this.onChange.bind(this,'salePrice')} 
 		  			value={this.state.form.salePrice}/>
@@ -117,7 +132,7 @@ class AddProductComponent extends React.Component{
 		  			onChange={this.onChange.bind(this,'specification')} 
 		  			value={this.state.form.specification} />
 	  			</Form.Item>
-	  			<Form.Item label="供应商Id">
+	  			<Form.Item label="供应商Id：">
 		  			<Input 
 		  			onChange={this.onChange.bind(this,'supplierId')} 
 		  			value={this.state.form.supplierId} />

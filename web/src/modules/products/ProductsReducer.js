@@ -6,7 +6,7 @@
 import * as types from '../../utils/commonConstant'
 
 
-export default function(state = {loading: false,data:[],pageNo:1,total:1}, action){
+export default function(state = {loading: false,data:[],pageNo:1,total:1,qty:1}, action){
     let reState = JSON.parse(JSON.stringify(state))
     switch(action.type){
         case types.PRODUCT_REQUEST:
@@ -14,8 +14,9 @@ export default function(state = {loading: false,data:[],pageNo:1,total:1}, actio
             break
         case types.PRODUCT_SUCCESS:
             reState.data        = action.response.data
-            reState.pageNo      = action.query.page
+            reState.pageNo      = action.response.page
             reState.total       = action.response.total
+            reState.qty         = action.response.qty
             reState.lastFetched = action.lastFetched
             reState.loading     = false
             break

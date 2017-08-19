@@ -30,9 +30,9 @@ module.exports = {
         //select * from products limit (pageNode-1)*qty,qty
         conn.query(sql,function(err,res){
         	if(!err){
-        		callback({status:true,message:'获取成功',data:res,total:total});
+        		callback({status:true,message:'获取成功',data:res,total:total,page:targetObj.page,qty:targetObj.qty});
         	}else{
-        		callback({status:false,message:'获取失败',data:null,total:null});
+        		callback({status:false,message:'获取失败',data:null,total:null,page:null,qty:null});
         	}
         	
 
@@ -121,11 +121,11 @@ module.exports = {
 		conn.query(sql1,sqlparam,function(err,res){
 			if(!err){
 				conn.query(sql2,function(err,res){
-        			callback({status:true,message:'删除成功',data:res,total:total});
+        			callback({status:true,message:'删除成功',data:res,total:total,page:targetObj.page,qty:targetObj.qty});
         		})
 			}else{
 				console.log(err)
-				callback({status:false,message:'删除失败',data:null,total:null});
+				callback({status:false,message:'删除失败',data:null,total:null,page:null,qty:null});
 			}
 			
 		})
