@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { Table,Input} from 'element-react';
+import { Table,Input,MessageBox} from 'element-react';
 import '../../static/styles/shouyin.scss';
 import * as ShouyinActions from './shouyinAction';
 import $ from './jquery3.1.1.js';
@@ -56,11 +56,27 @@ class ShouyinComponent extends React.Component{
 		$('.discount').css({display:'none'});
 	}
 	sure(){
-		var _discount_rate = $('.discount_rate').html();
-		
+		var _discount_rate = $('.paid-up').val();
+		$('.dismoney').html(_discount_rate);
+		$('.discount').css({display:'none'});
 	}
-	judge(){
-		var _discount_rate = $('.discount_rate').html();
+	onClick(){
+		var _discount_rate = $('.discount_rate').val();
+		var _dismoney = $('.dismoney').html();
+		var _afterDiscount;
+		var _afterDiscount_price;
+		if(_discount_rate<0.7&&_discount_rate != ''){
+			MessageBox.alert('折扣太低');
+			$('.discount_rate').val('');
+		}else if(_discount_rate>1&&_discount_rate != ''){
+			MessageBox.alert('折扣不合法');
+			$('.discount_rate').val('');
+		}else if(_discount_rate != ''){
+			_afterDiscount = (_dismoney*_discount_rate).toFixed(2);
+			_afterDiscount_price = (_dismoney - _afterDiscount).toFixed(2);
+		}
+		$('.paid-up').val(_afterDiscount);
+		$('.discount_price').val(_afterDiscount_price);
 	}
 	componentDidMount(){
 		var time = new Date();
@@ -239,7 +255,7 @@ class ShouyinComponent extends React.Component{
 			   		<div className="discount">
 			   			<p><span>折扣[整单]</span><span onClick={this.delect.bind(this)}>x</span></p>
 			   			<form>
-			   				<label>输入折扣率:<input type="text" className="discount_rate" onBlur={this.judge.bind(this)}/></label>
+			   				<label>输入折扣率:<input type="text" className="discount_rate" onBlur={this.onClick.bind(this)}/></label>
 			   				<label>折扣金额:&nbsp;&nbsp;&nbsp;<input type="text" className="discount_price"/></label>
 			   				<label>实收金额:&nbsp;&nbsp;&nbsp;<input type="text" className="paid-up"/></label>
 			   				<button onClick={this.sure.bind(this)}>确定</button>
