@@ -73,7 +73,7 @@ class EditComponent extends React.Component {
 
     }
 
-    render(){
+    render(){alert(this.props.status)
         if(!this.props.status){
             return null
         }

@@ -67,7 +67,7 @@ class AddAction extends React.Component {
         //获取用户；
         this.props.allUser().then(response=>{
             console.log(response,this.props.data);
-            console.log(this.props);alert(999)
+            console.log(this.props);
         });
     }
 

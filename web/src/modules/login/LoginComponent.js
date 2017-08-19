@@ -39,10 +39,9 @@ class LoginComponent extends React.Component {
                 if(res){
                     var username = this.props.data.data[0].name;
                     Message({message: '恭喜你，登录成功！', duration: 2000, type: 'success',onClose: function(){
+                         
                          //跳转到主页；
-                        // document.getElementById("username").value = "";
-                        // document.getElementById("password").value = "";
-                        hashHistory.push("add");}
+                        hashHistory.push("products");}
                     });
 
                     //改变登录状态；

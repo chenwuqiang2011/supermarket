@@ -7,7 +7,8 @@ import * as types from '../../utils/commonConstant'
 
 export default function(state = {loading: false,name:null,logout:"登录",data:{data:[]}}, action){
     let reState = JSON.parse(JSON.stringify(state))
-    /*console.log("action",action.resonse)*/
+    console.log("action",action.resonse)
+
     switch(action.type){
         case types.REQUEST:
             reState.loading = true
